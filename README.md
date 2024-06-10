@@ -4,7 +4,7 @@ Bienvenue sur le dépôt de mon portfolio ! Je suis un étudiant passionné en M
 
 ## 📚 À Propos de Moi
 
-🎓 **Nom :** Lavandier Théo
+🎓 **Nom :** Lavandier Théo  
 🏫 **Éducation :** Master en Ingénierie de la Statistique et de l'Informatique, Université de Bordeaux  
 💻 **Intérêts :** Data Science, Intelligence Artificielle, Machine Learning, Deep Learning, Computer Vision  
 ✉️ **Contact :** theo33220@hotmail.com
