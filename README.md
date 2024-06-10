@@ -15,8 +15,8 @@ Ce dépôt contient mon site personnel, construit avec des outils modernes de d�
 
 ### 📊 Projets Universitaires
 
-1. **Nom du Projet 1** : Brève description du projet. [Lien vers le projet]
-2. **Nom du Projet 2** : Brève description du projet. [Lien vers le projet]
+1. **Projet de visualisation analytique** : Brève description du projet. [Lien vers le projet]
+2. **Analyses et prédictions sur des séries temporelles** : Brève description du projet. [Lien vers le projet]
 
 ### 💡 Projets Personnels
 
