@@ -8,9 +8,6 @@ tags: [projet]
 pin: true
 math: true
 mermaid: true
-# image:
-  # path: /assets/img/AirCraft/presentation.jpg
-  # alt: Time series prediction image.
 ---
 
 
