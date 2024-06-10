@@ -1,6 +1,6 @@
 ---
-title: Détection d'avions sur des images et vidéos
-description: Détection d'avions sur des images et vidéos à l'aide de YOLOv8.
+title: Détection d'avions militaires
+description: Détection d'avions militaires sur des images et vidéos à l'aide de YOLOv8.
 author: <author_id>
 date: 2024-06-01 11:33:00 +0800
 categories: [Projet Personnel, Deep Learning]
@@ -9,7 +9,6 @@ pin: true
 math: true
 mermaid: true
 ---
-
 
 ## Plan
 - Introduction
@@ -22,14 +21,28 @@ mermaid: true
 
 ## Introduction
 
+blabla
+
 ## YOLOv8
+
+blabla
 
 ## Dataset
 
+blabla
+
 ## Entrainement du modèle
+
+blabla
 
 ## Test du modèle sur des images
 
+blabla
+
 ## Test du modèle sur des vidéos
 
+blabla
+
 ## Conclusion
+
+blabla
