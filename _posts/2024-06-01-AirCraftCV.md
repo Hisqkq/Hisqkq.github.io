@@ -19,6 +19,8 @@ image:
 
 Dans ce projet, j'ai utilisé un modèle YOLOv8 pour détecter et classifier les avions militaires sur des images et des vidéos. L'objectif est de montrer la puissance de l'Object Detection dans le domaine de la Computer Vision, en particulier pour la reconnaissance d'objets complexes et en mouvement, et nottament pour des objets ayant des caractéristiques similaires comme les avions militaires.
 
+Le notebook associé à ce projet est disponible sur [Kaggle](https://www.kaggle.com/code/hisakaa/yolov8-aircraft-detection/).
+
 ## YOLOv8
 
 YOLOv8 est un modèle d'Object Detection basé sur le réseau de neurones YOLO (You Only Look Once). Il s'agit de la huitième version de ce modèle, qui a été amélioré pour être plus rapide et plus précis que ses prédécesseurs. Développé par Ultralytics, YOLOv8 offre des améliorations significatives en termes de précision et de vitesse par rapport à ses prédécesseurs.
