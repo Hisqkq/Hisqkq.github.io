@@ -313,7 +313,7 @@ Nous pouvons essayer le modèle sur une autre video ou la visibilité des avions
   <source src="/assets/vid/AirCraft/F22video.mp4" type="video/mp4">
 </video>
 
-Ceci est un exemple de vidéo annotée avec les détections de YOLOv8 sur une vidéo de présentation du F22. Le modèle a réussi à détecter les avions dans la vidéo, mais il a rencontré des difficultés à classfier l'avion correctement. Il semble que le modèle ait confondu le F22 avec d'autres avions, notamment le F35. Cela peut être dû à des similitudes dans les caractéristiques visuelles des avions ou à des variations dans les données d'entraînement.
+Ceci est un exemple de vidéo annotée avec les détections de YOLOv8 sur une vidéo de présentation du F22. Le modèle a plutôt bien réussi à détecter l'avion dans la vidéo, mais il a rencontré des difficultés à classifier l'avion correctement. Il semble que le modèle ait confondu le F22 avec d'autres avions, notamment le F35. Cela peut être dû à des similitudes dans les caractéristiques visuelles des avions ou à des variations dans les données d'entraînement.
 
 ## Conclusion
 
