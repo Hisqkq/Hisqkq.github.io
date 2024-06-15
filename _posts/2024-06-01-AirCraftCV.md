@@ -73,7 +73,7 @@ Avant de commencer l'entraînement, nous avons divisé notre ensemble de donnée
 
 ### Etapes de l'Entrainement
 
-1. **Configuration du Modèle**  
+#### 1. **Configuration du Modèle**  
 Un fichier de configuration YAML est créé pour spécifier :
 
 Les chemins vers les ensembles d'entraînement, de validation et de test.
@@ -90,7 +90,7 @@ nc: 3
 names: ['F35', 'JAS39', 'B52']
 ```
 
-2. **Architecture du Modèle**  
+#### 2. **Architecture du Modèle**  
 YOLOv8 utilise une architecture de réseau de neurones convolutifs (CNN) avec plusieurs couches :  
 
 *Convolutionnelles* : Pour extraire les caractéristiques des images.  
@@ -100,7 +100,7 @@ YOLOv8 utilise une architecture de réseau de neurones convolutifs (CNN) avec pl
 
 Chaque couche est conçue pour capturer des informations spécifiques des images et les combiner pour produire des prédictions précises.  
 
-3. **Processus d'Entraînement**   
+#### #3. **Processus d'Entraînement**   
 Pendant l'entraînement, le modèle passe par les étapes suivantes :   
 
 *Propagation avant* : L'image passe à travers les couches du modèle, produisant des prédictions.  
@@ -249,6 +249,5 @@ Voici l'image de Rafale utilisée pour le test et la prédiction du modèle :
 
 ![Rafale](/assets/img/AirCraft/RafalePred.jpg)
 
-On peut voir que le modèle a correctement détecté et classifié les deux avions Rafale dans l'image, avec des boîtes englobantes précises et des prédictions de classe correctes.
-
+On peut voir que le modèle a correctement détecté et classifié les deux avions Rafale dans l'image, avec des boîtes englobantes précises et des prédictions de classe correctes. 
 
