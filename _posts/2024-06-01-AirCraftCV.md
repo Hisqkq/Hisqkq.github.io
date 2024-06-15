@@ -251,3 +251,62 @@ Voici l'image de Rafale utilisée pour le test et la prédiction du modèle :
 
 On peut voir que le modèle a correctement détecté et classifié les deux avions Rafale dans l'image, avec des boîtes englobantes précises et des prédictions de classe correctes. 
 
+## Test du modèle sur des vidéos
+
+En plus des images, le modèle YOLOv8 peut également être utilisé pour détecter des avions dans des vidéos. J'ai testé le modèle sur une vidéo de présentation du Rafale sur YouTube. Voici le lien de la vidéo : [Rafale Video](https://www.youtube.com/watch?v=Q1J1j6Q1JZQ)
+
+Après avoir téléchargé la vidéo, j'ai extrait des images de la vidéo à intervalles réguliers et utilisé le modèle YOLOv8 pour détecter les avions dans chaque image. Voici un exemple de code pour détecter les avions dans une vidéo :
+
+```python
+import cv2
+import numpy as np
+from ultralytics import YOLO
+
+F22_video_path = "/kaggle/input/videos/F-22 Raptor with Wall of Fire - Dayton Air Show 72323.mp4"
+
+def process_video(video_path, output_path):
+    cap = cv2.VideoCapture(video_path)
+    
+    width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
+    height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
+    fps = int(cap.get(cv2.CAP_PROP_FPS))
+    new_width = 640
+    new_height = int(new_width * height / width)
+
+    fourcc = cv2.VideoWriter_fourcc(*'VP90')  # mp4v pour un format mp4
+    out = cv2.VideoWriter(output_path, fourcc, fps, (new_width, new_height))
+
+    while cap.isOpened():
+        ret, frame = cap.read()
+        if not ret:
+            break
+        
+        resized_frame = cv2.resize(frame, (new_width, new_height))
+
+        results = model(resized_frame)
+
+        annotated_frame = results[0].plot()
+
+        out.write(annotated_frame)
+
+    cap.release()
+    out.release()
+
+output_path = '/kaggle/working/annotated_F22_video.mp4'
+
+process_video(F22_video_path, output_path)
+```
+
+Voici un exemple de la vidéo annotée avec les détections de YOLOv8 :
+
+<video width="640" height="360" controls>
+  <source src="/assets/vid/AirCraft/rafalevideo.mp4" type="video/mp4">
+</video>
+
+La vidéo montre les détections de YOLOv8 sur la vidéo de présentation du Rafale, avec des boîtes englobantes et des prédictions de classe pour chaque avion détecté. Le modèle est capable de détecter les avions en mouvement dans la vidéo, démontrant sa capacité à traiter des séquences vidéo en temps réel. Cependant, nous pouvons observer que le modèle a parfois des difficultés à détecter les avions lorsqu'ils sont partiellement cachés ou quand on les voit de dos. Par exemple dans la vidéo, le modèle a du mal à détecter les avions Rafale lorsqu'ils sont vus de dos, il a tendance à les confondre avec d'autres avions, notamment avec l'EF2000 et le tornado.  
+
+Cela souligne l'importance de la qualité des données d'entraînement et de la diversité des exemples pour améliorer la performance du modèle dans des conditions variées.
+
+## Conclusion
+
+Dans ce projet, j'ai utilisé un modèle YOLOv8 pour détecter et classifier les avions militaires sur des images et des vidéos. Le modèle a été entraîné sur un ensemble de données comprenant 14 500 images d'avions militaires, avec des annotations détaillées pour chaque image. Après l'entraînement et la validation, le modèle a montré de bonnes performances en termes de précision et de rappel, avec des scores élevés pour la plupart des classes d'avions. Les tests sur des images et des vidéos réelles ont également montré que le modèle est capable de détecter les avions dans des conditions variées, bien qu'il puisse rencontrer des difficultés avec des avions partiellement cachés ou dans des angles inhabituels.
