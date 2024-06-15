@@ -253,7 +253,7 @@ On peut voir que le modèle a correctement détecté et classifié les deux avio
 
 ## Test du modèle sur des vidéos
 
-En plus des images, le modèle YOLOv8 peut également être utilisé pour détecter des avions dans des vidéos. J'ai testé le modèle sur une vidéo de présentation du Rafale sur YouTube. Voici le lien de la vidéo : [Rafale Video](https://www.youtube.com/watch?v=Q1J1j6Q1JZQ)
+En plus des images, le modèle YOLOv8 peut également être utilisé pour détecter des avions dans des vidéos. J'ai testé le modèle sur une vidéo de présentation du Rafale sur YouTube. Voici le lien de la vidéo : [Rafale Video](https://www.youtube.com/watch?v=OCghuDF5sec)
 
 Après avoir téléchargé la vidéo, j'ai extrait des images de la vidéo à intervalles réguliers et utilisé le modèle YOLOv8 pour détecter les avions dans chaque image. Voici un exemple de code pour détecter les avions dans une vidéo :
 
@@ -306,6 +306,14 @@ Voici un exemple de la vidéo annotée avec les détections de YOLOv8 :
 La vidéo montre les détections de YOLOv8 sur la vidéo de présentation du Rafale, avec des boîtes englobantes et des prédictions de classe pour chaque avion détecté. Le modèle est capable de détecter les avions en mouvement dans la vidéo, démontrant sa capacité à traiter des séquences vidéo en temps réel. Cependant, nous pouvons observer que le modèle a parfois des difficultés à détecter les avions lorsqu'ils sont partiellement cachés ou quand on les voit de dos. Par exemple dans la vidéo, le modèle a du mal à détecter les avions Rafale lorsqu'ils sont vus de dos, il a tendance à les confondre avec d'autres avions, notamment avec l'EF2000 et le tornado.  
 
 Cela souligne l'importance de la qualité des données d'entraînement et de la diversité des exemples pour améliorer la performance du modèle dans des conditions variées.
+
+Nous pouvons essayer le modèle sur une autre video ou la visibilité des avions est moins bonne pour voir si le modèle arrive à les détecter.
+
+<video width="640" height="360" controls>
+  <source src="/assets/vid/AirCraft/F22video.mp4" type="video/mp4">
+</video>
+
+Ceci est un exemple de vidéo annotée avec les détections de YOLOv8 sur une vidéo de présentation du F22. Le modèle a réussi à détecter les avions dans la vidéo, mais il a rencontré des difficultés à classfier l'avion correctement. Il semble que le modèle ait confondu le F22 avec d'autres avions, notamment le F35. Cela peut être dû à des similitudes dans les caractéristiques visuelles des avions ou à des variations dans les données d'entraînement.
 
 ## Conclusion
 
