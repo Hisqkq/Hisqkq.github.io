@@ -56,10 +56,10 @@ Cette image montre un avion Mirage 2000 qui est un avion de chasse conçu par la
 Dans le set de données, il y a tout types d'image, des images plus ou moins claires, des images avec un ou plusieurs avions, des images avec des avions de différentes classes, etc. Celà permet de tester la capacité du modèle à détecter et classifier les avions dans des contextes variés.
 
 ### Exemple de Fichier CSV
-| filename                         | width | height | class | xmin | ymin | xmax | ymax |
+| filename | width | height | class | xmin | ymin | xmax | ymax |
 |----------------------------------|-------|--------|-------|------|------|------|------|
-| 000aa01b25574f28b654718db0700f72 | 2048  | 1365   | F35   | 852  | 177  | 1998 | 503  |
-| 000aa01b25574f28b654718db0700f72 | 2048  | 1365   | JAS39 | 169  | 769  | 549  | 893  |
+| 000aa01b25574f28b654718db0700f72 | 2048  | 1365   | F35   | 852  | 177  | 1998 | 503 |
+| 000aa01b25574f28b654718db0700f72 | 2048  | 1365   | JAS39 | 169  | 769  | 549  | 893 |
 | 000aa01b25574f28b654718db0700f72 | 2048  | 1365   | JAS39 | 125  | 908  | 440  | 1009 |
 | 000aa01b25574f28b654718db0700f72 | 2048  | 1365   | B52   | 277  | 901  | 1288 | 1177 |
 
