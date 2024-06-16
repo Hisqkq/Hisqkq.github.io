@@ -103,7 +103,7 @@ YOLOv8 utilise une architecture de réseau de neurones convolutifs (CNN) avec pl
 
 Chaque couche est conçue pour capturer des informations spécifiques des images et les combiner pour produire des prédictions précises.  
 
-#### #3. **Processus d'Entraînement**   
+#### 3. **Processus d'Entraînement**   
 Pendant l'entraînement, le modèle passe par les étapes suivantes :   
 
 *Propagation avant* : L'image passe à travers les couches du modèle, produisant des prédictions.  
