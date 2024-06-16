@@ -8,7 +8,7 @@ order: 4
 
 # 🌟 Mon Portfolio Data Science & IA 🌟
 
-Bienvenue sur le dépôt de mon portfolio ! Je suis un étudiant passionné en Master d'Ingénierie de la Statistique et de l'Informatique à l'Université de Bordeaux. Mon intérêt se porte particulièrement sur la Data Science et l'Intelligence Artificielle. Ce site regroupe mes projets universitaires ainsi que mes projets personnels, illustrant mon parcours et mes compétences dans ces domaines passionnants.
+Bienvenue sur le dépôt de mon portfolio ! Vous trouverez ici des informations sur mon parcours universitaire, mes projets universitaires et personnels, ainsi que quelques articles sur mes expériences personnelles et professionnelles. N'hésitez pas à me contacter pour toute question ou proposition de collaboration. Bonne lecture !
 
 ## 📚 À Propos de Moi
 
@@ -26,7 +26,7 @@ Les Cursus Master Ingénierie (CMI) sont des formations universitaires progressi
 
 Voici un aperçu de mon parcours universitaire, avec les matières étudiées dans chaque semestre :  
 
-## Licence
+## Licence (Université de Bordeaux)
 
 ### S1
 - Mathématiques générales

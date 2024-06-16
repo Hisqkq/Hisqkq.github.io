@@ -17,7 +17,7 @@ image:
 
 ## Introduction
 
-Dans ce projet, j'ai utilisé un modèle YOLOv8 pour détecter et classifier les avions militaires sur des images et des vidéos. L'objectif est de montrer la puissance de l'Object Detection dans le domaine de la Computer Vision, en particulier pour la reconnaissance d'objets complexes et en mouvement, et nottament pour des objets ayant des caractéristiques similaires comme les avions militaires.
+Dans ce projet, j'ai utilisé un modèle YOLOv8 pour détecter et classifier les avions militaires sur des images et des vidéos. L'objectif est de montrer la puissance de l'Object Detection dans le domaine de la Computer Vision, en particulier pour la reconnaissance d'objets complexes et en mouvement, et notament pour des objets ayant des caractéristiques similaires comme les avions militaires.
 
 Le notebook associé à ce projet est disponible sur [Kaggle](https://www.kaggle.com/code/hisakaa/yolov8-aircraft-detection/).
 
@@ -51,9 +51,9 @@ Cette image montre un avion C5 Galaxy, un avion de transport militaire lourd uti
 
 ![Mirage2000](/assets/img/AirCraft/Mirage2000.jpg)
 
-Cette image montre un avion Mirage 2000 qui est un avion de chasse conçu par la société française Dassault Aviation, à la fin des années 1970. Le Mirage 2000 est principalement utilisé par l'Armée de l'air française qui en a reçu 315 exemplaires, tandis que 286 autres ont été exportés vers huit pays différents.  
+Cette image montre un avion Mirage 2000 qui est un avion de chasse conçu par la société française Dassault Aviation, à la fin des années 1970. Le Mirage 2000 est principalement utilisé par l'Armée de l'Air française qui en a reçu 315 exemplaires, tandis que 286 autres ont été exportés vers huit pays différents.  
 
-Dans le set de données, il y a tout types d'image, des images plus ou moins claires, des images avec un ou plusieurs avions, des images avec des avions de différentes classes, etc. Celà permet de tester la capacité du modèle à détecter et classifier les avions dans des contextes variés.
+Dans le set de données, il y a tous types d'images, des images plus ou moins claires, des images avec un ou plusieurs avions, d'autres avec des avions de différentes classes, etc. Cela permet de tester la capacité du modèle à détecter et classifier les avions dans des contextes variés.
 
 ### Exemple de Fichier CSV  
 
@@ -311,7 +311,7 @@ La vidéo montre les détections de YOLOv8 sur la vidéo de présentation du Raf
 
 Cela souligne l'importance de la qualité des données d'entraînement et de la diversité des exemples pour améliorer la performance du modèle dans des conditions variées.
 
-Nous pouvons essayer le modèle sur une autre video ou la visibilité des avions est moins bonne pour voir si le modèle arrive à les détecter.
+Nous pouvons essayer le modèle sur une autre video où la visibilité des avions est moins bonne pour voir si le modèle arrive à les détecter.
 
 <video width="640" height="360" controls>
   <source src="/assets/vid/AirCraft/F22video.mp4" type="video/mp4">
