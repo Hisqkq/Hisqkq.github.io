@@ -119,13 +119,13 @@ comments:
   giscus:
     repo: Hisqkq/Hisqkq.github.io
     repo_id: 809185449
-    category: Ideas
-    category_id: DIC_kwDOH0Atrs4CeViu
+    category: Comments
+    category_id: 41991996
     mapping: pathname
     strict: 0
     input_position: 
     lang: en
-    reactions_enabled: 0
+    reactions_enabled: 
 
 # Self-hosted static assets, optional › https://github.com/cotes2020/chirpy-static-assets
 assets:
