@@ -17,9 +17,10 @@ image:
 
 ## Introduction
 
-Dans ce projet, j'ai utilisé un modèle YOLOv8 pour détecter et classifier les avions militaires sur des images et des vidéos. L'objectif est de montrer la puissance de l'Object Detection dans le domaine de la Computer Vision, en particulier pour la reconnaissance d'objets complexes et en mouvement, et notament pour des objets ayant des caractéristiques similaires comme les avions militaires.
+Dans ce projet, j'ai utilisé un modèle **YOLOv8** pour d**étecter et classifier les avions militaires** sur des images et des vidéos. L'objectif est de montrer la puissance de l'Object Detection dans le domaine de la **Computer Vision**, en particulier pour la reconnaissance d'objets complexes et en mouvement, et notament pour des objets ayant des caractéristiques similaires comme les avions militaires.
 
-Le notebook associé à ce projet est disponible sur [Kaggle](https://www.kaggle.com/code/hisakaa/yolov8-aircraft-detection/).
+> Le notebook associé à ce projet est disponible sur [ce lien Kaggle](https://www.kaggle.com/code/hisakaa/yolov8-aircraft-detection/).
+{: .prompt-info }
 
 ## YOLOv8
 
@@ -64,11 +65,11 @@ Dans le set de données, il y a tous types d'images, des images plus ou moins cl
 | 000aa01b25574f28b654718db0700f72 | 2048  | 1365   | JAS39 | 125  | 908  | 440  | 1009 |
 | 000aa01b25574f28b654718db0700f72 | 2048  | 1365   | B52   | 277  | 901  | 1288 | 1177 |
 
-Ces données fournissent une base solide pour entraîner et tester notre modèle YOLOv8, en permettant de reconnaître avec précision divers types d'avions militaires dans des contextes variés.
+Ces données fournissent une base solide pour entraîner et **tester** notre modèle YOLOv8, en permettant de reconnaître avec précision divers types d'avions militaires dans des contextes variés.
 
 ## Entrainement du modèle
 
-Pour entrainer un modèle YOLOv8, il est essentiel de disposer d'un ensemble de données étiquetées, qui servira de base pour l'apprentissage du modèle. Dans ce projet, nous avons utilisé un ensemble de données comprenant 14 500 images d'avions militaires, chacune étant annotée avec les coordonnées des avions présents et leur classification.
+Pour entrainer un **modèle YOLOv8**, il est essentiel de disposer d'un ensemble de données étiquetées, qui servira de base pour l'apprentissage du modèle. Dans ce projet, nous avons utilisé un ensemble de données comprenant 14 500 images d'avions militaires, chacune étant annotée avec les coordonnées des avions présents et leur classification.
 
 ### Train Validation Test Split
 
