@@ -3,7 +3,7 @@ icon: fas fa-info-circle
 order: 4
 ---
 
-> Si vous souhaitez voir mon CV, vous pouvez cliquer sur l'onglet CV dans le menu de navigation, ou suivre ce [lien](https://Hisqkq.github.io/cv).
+> Si vous souhaitez voir mon CV, vous pouvez cliquer sur l'onglet CV dans le menu de navigation, ou [suivre ce lien](https://Hisqkq.github.io/Curriculum-Vitae/).
 {: .prompt-tip }
 
 # 🌟 Mon Portfolio Data Science & IA 🌟
