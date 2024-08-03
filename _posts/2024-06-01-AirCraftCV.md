@@ -5,7 +5,7 @@ author: <author_id>
 date: 2024-06-01 11:33:00 +0800
 categories: [Projet Personnel, Deep Learning]
 tags: [projet, computer vision, YOLOv8, Deep Learning, Object Detection, detection, classification]
-pin: true
+pin: false
 math: true
 mermaid: true
 image:
