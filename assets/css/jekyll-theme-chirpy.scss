@@ -1,0 +1,144 @@
+
+@mixin colorbox($border-color, $icon-color, $icon-content, $bg-color, $fa-style: 'solid') {
+    border-left: .2rem solid $border-color;
+    border-radius: 0.25rem;
+    color: var(--text-color);
+    padding: .6rem 1rem .6rem 1.5rem;
+    box-shadow: var(--language-border-color) 1px 1px 2px 1px;
+    position: relative;
+    margin-bottom: 1rem;
+  
+    > div.title::before {
+      content: $icon-content;
+      color: $icon-color;
+      font: var(--fa-font-#{$fa-style});
+      text-align: center;
+      width: 3rem;
+      position: absolute;
+      left: .2rem;
+      margin-top: .4rem;
+      text-rendering: auto;
+      -webkit-font-smoothing: antialiased;
+    }
+  
+    > div.title {
+      background-color: $bg-color;
+      color: $icon-color;
+      padding: .5rem .6rem .5rem 3rem; 
+      margin: -.6rem -1rem .6rem -1.5rem;
+      font-weight: 600;
+    }
+    
+    > p:last-child{
+        margin-bottom: 0;
+    }
+}
+  
+
+.box-info {
+@include colorbox(
+    var(--prompt-info-icon-color),
+    var(--prompt-info-icon-color),
+    "\f06a",
+    var(--prompt-info-bg)
+);
+}
+
+
+.box-tip {
+@include colorbox(
+    var(--prompt-tip-icon-color),
+    var(--prompt-tip-icon-color),
+    "\f0eb",
+    var(--prompt-tip-bg),
+    'regular'
+);
+}
+
+
+.box-warning {
+@include colorbox(
+    var(--prompt-warning-icon-color),
+    var(--prompt-warning-icon-color),
+    "\f06a",
+    var(--prompt-warning-bg)
+);
+}
+
+
+.box-danger {
+@include colorbox(
+    var(--prompt-danger-icon-color),
+    var(--prompt-danger-icon-color),
+    "\f071",
+    var(--prompt-danger-bg)
+);
+}
+
+
+
+details {
+    border-radius: .25rem;
+    border-left: .2rem solid var(--prompt-tip-icon-color);
+    box-shadow: var(--language-border-color) 1px 1px 2px 1px; 
+    margin-bottom: 1rem;
+    padding: .6rem 1rem .6rem 1.5rem;
+    > p:last-child{
+     margin-bottom: 0;
+ }
+}
+
+ details > summary {
+     padding: .5rem 1.0rem .5rem 1.0rem; 
+     margin: -.6rem -1rem -.6rem -1.5rem;
+     font-weight: 600;
+     background-color: var(--prompt-tip-bg);
+     color: var(--prompt-tip-icon-color);
+     text-decoration: underline;
+     position: relative;
+     list-style: none; 
+     transition: background-color 0.3s ease;
+ }
+
+ details > summary::-webkit-details-marker {
+     display: none; 
+ }
+ details > summary::marker {
+     content: none; 
+ }
+
+ details > summary::before {
+     // content: '🙈'; 
+     /* content:'\002B9A'; */
+     content: '😼';
+     margin-right: .5rem;
+     display: inline-block;
+ }
+ details[open] > summary::before {
+     /* content: '🐵';*/  
+     /* content: '\002B9B'; */
+     content: '🙀';
+     animation: my-cat .2s ease-in-out; 
+     margin-right: .5rem;
+ }
+
+ details > summary::after {
+     font-family: 'Font Awesome 6 Free';
+     content: "\f105"; /* Unicode for fa-angle-down */
+     display: inline-block;
+     transition: transform 0.2s ease; 
+     position: absolute;
+     right: 1rem; 
+ }
+ details[open] > summary::after {
+     transform: rotate(90deg);
+ }
+
+ details[open] > summary{
+     // transition: margin 200ms ease-out; 
+     margin-bottom: .6rem;
+ }
+
+ @keyframes my-cat {
+     50%  { transform: scale(1.3); } 
+ }
