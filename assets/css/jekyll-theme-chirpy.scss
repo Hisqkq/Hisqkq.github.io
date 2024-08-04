@@ -1,12 +1,3 @@
----
----
-
-@import 'main
-{%- if jekyll.environment == 'production' -%}
-  .bundle
-{%- endif -%}
-';
-
 /* append your custom style below */
 
 /* 首页预览 post 标题字体加粗 */
