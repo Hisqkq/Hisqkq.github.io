@@ -37,15 +37,7 @@ Le site est construit en utilisant [Jekyll](https://jekyllrb.com/) et [Minimal M
 - **Éléments Interactifs :** Inclut des animations et des éléments interactifs pour améliorer l'expérience utilisateur.
 - **Pages de Projets Détaillées :** Chaque projet a une page dédiée avec des descriptions, éventuellement des extraits de code et des résultats.
 - **Navigation Facile :** Mise en page propre et facile à naviguer.
-
-## 🤝 Contribution
-
-Les contributions sont les bienvenues ! Si vous avez des suggestions ou des améliorations, n'hésitez pas à créer une issue ou à soumettre une pull request.
-
-## 📜 Licence
-
-Ce projet est sous licence MIT. Voir le fichier [LICENSE](LICENSE) pour plus de détails.
-
+  
 ---
 
 Merci de visiter mon portfolio ! J'espère que vous trouverez mes projets intéressants et instructifs. N'hésitez pas à me contacter si vous avez des questions ou des idées de collaboration. Connectons-nous et créons quelque chose d'incroyable ensemble ! 🌟
