@@ -1,8 +1,7 @@
-// details class="details-block" 样式设计
 details.details-block {
     border-radius: .25rem;
     border-left: .2rem solid var(--details-border-color);
-    box-shadow: var(--language-border-color) 1px 1px 2px 1px; /* 借用了代码框的边框颜色变量 */
+    box-shadow: var(--language-border-color) 1px 1px 2px 1px;
     margin-bottom: 1rem;
     padding: .6rem 1rem .6rem 1.5rem;
     > p:last-child{
@@ -18,41 +17,34 @@ details.details-block > summary {
     color: var(--details-border-color);
     text-decoration: underline;
     position: relative;
-    list-style: none; /* 隐藏默认的箭头 */
+    list-style: none;
 }
 
 details.details-block > summary::-webkit-details-marker {
-    display: none; /* IOS 隐藏默认的箭头 */
+    display: none; 
 }
 details.details-block > summary::marker {
-    content: none; /* 隐藏默认的箭头 */
+    content: none;
 }
 
 details.details-block > summary::before {
-    /* 关闭状态下 */
-    /* 也可以用其他符号或自定义图标，比如 Unicode 字符 */
-    // content: '🙈'; 
-    /* content:'\002B9A'; */
     content: '😼';
     margin-right: .5rem;
     display: inline-block;
 }
 details.details-block[open] > summary::before {
-    /* 展开状态下 */
-    /* content: '🐵';*/  
-    /* content: '\002B9B'; */
     content: '🙀';
-    animation: my-cat .2s ease-in-out; /*  点击会有动画效果 */
+    animation: my-cat .2s ease-in-out; 
     margin-right: .5rem;
 }
 
 details.details-block > summary::after {
     font-family: 'Font Awesome 6 Free';
-    content: "\f105"; /* Unicode for fa-angle-down */
+    content: "\f105"; 
     display: inline-block;
-    transition: transform 0.2s ease; /* 添加旋转动画 */
+    transition: transform 0.2s ease;
     position: absolute;
-    right: 1rem; /* 调整箭头在最右边的位置 */
+    right: 1rem; 
 }
 
 details.details-block[open] > summary::after {
@@ -60,12 +52,11 @@ details.details-block[open] > summary::after {
 }
 
 details.details-block[open] > summary{
-    // transition: margin 200ms ease-out; /* 展开会有动画效果 */
     margin-bottom: .6rem;
 }
 
 @keyframes my-cat {
-    50%  { transform: scale(1.2); } /* 动画效果代码 */
+    50%  { transform: scale(1.2); } 
 }
 
 
@@ -85,21 +76,21 @@ details.details-inline > summary {
     // border-bottom: 1px solid var(--link-underline-color);
 }
 details.details-inline > summary:hover {
-    color: #d2603a; /* 鼠标悬停时的颜色 */
+    color: #d2603a; 
     border-bottom: 1px solid #d2603a;
 }
 details.details-inline > summary::marker {
-    content: none; /* 隐藏默认的箭头 */
+    content: none; 
 }
 details.details-inline > summary::-webkit-details-marker {
-    display: none; /* IOS 隐藏默认的箭头 */
+    display: none; 
 }
 details.details-inline > summary::before {
     content: '+';
     scale: 1.3;
     display: inline-block;
     margin-right: .4rem;
-    transition: transform 0.2s ease; /* 添加旋转动画 */
+    transition: transform 0.2s ease;
 }
 details.details-inline[open] > summary::before {
     transform: rotate(135deg);

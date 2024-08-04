@@ -33,7 +33,6 @@
     }
 }
   
-/* box-info 蓝色 */
 .box-info {
 @include colorbox(
     var(--prompt-info-icon-color),
@@ -43,7 +42,6 @@
 );
 }
 
-/* box-tip 绿色 */
 .box-tip {
 @include colorbox(
     var(--prompt-tip-icon-color),
@@ -54,7 +52,6 @@
 );
 }
 
-/* box-warning 黄色 */
 .box-warning {
 @include colorbox(
     var(--prompt-warning-icon-color),
@@ -64,7 +61,6 @@
 );
 }
 
-/* box-danger 红色 */
 .box-danger {
 @include colorbox(
     var(--prompt-danger-icon-color),
