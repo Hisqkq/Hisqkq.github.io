@@ -26,15 +26,23 @@ Dans ce projet, j'ai utilisé un modèle **YOLOv8** pour d**étecter et classifi
 
 YOLOv8 est un modèle d'Object Detection basé sur le réseau de neurones YOLO (You Only Look Once). Il s'agit de la huitième version de ce modèle, qui a été amélioré pour être plus rapide et plus précis que ses prédécesseurs. Développé par Ultralytics, YOLOv8 offre des améliorations significatives en termes de précision et de vitesse par rapport à ses prédécesseurs.
 
-### Caractéristiques Principales de YOLOv8
+<div class="box-info" markdown="1">
+<div class="title">Caractéristiques Principales de YOLOv8</div>
+
 - **Détection en temps réel** : Capable de traiter des vidéos en direct pour détecter des objets instantanément.
 - **Haute Précision** : Utilise des techniques avancées de deep learning pour fournir des prédictions précises.
 - **Efficacité** : Conçu pour être utilisé même sur des machines avec des ressources limitées, comme des ordinateurs portables sans GPU puissant.
 
-### Avantages de YOLOv8
+</div>
+
+<div class="box-tip" markdown="1">
+<div class="title">Avantages de YOLOv8</div>
+
 - **Vitesse** : Optimisé pour la rapidité, ce qui est essentiel pour des applications telles que la surveillance aérienne.
 - **Polyvalence** : Peut être appliqué à divers types d'objets et contextes, y compris la détection d'avions dans des images et des vidéos.
 - **Facilité d'Utilisation** : Intégré avec des outils de développement populaires et bien documenté, ce qui facilite sa mise en œuvre.
+
+</div>
 
 En utilisant YOLOv8, ce projet vise à démontrer comment les technologies modernes de vision par ordinateur peuvent être appliquées efficacement pour la détection d'objets spécifiques dans des images et des vidéos, contribuant ainsi à des domaines tels que la sécurité et la surveillance aérienne.
 
@@ -42,21 +50,9 @@ En utilisant YOLOv8, ce projet vise à démontrer comment les technologies moder
 
 Nous disposons d'un riche ensemble de données comprenant 14 500 images, chacune contenant un ou plusieurs avions. Pour chaque image, un fichier CSV associé fournit des annotations détaillées des avions présents, incluant les coordonnées de leurs positions (xmin, ymin, xmax, ymax) ainsi que leur classification.
 
-### Exemple d'Images du Dataset
+<div class="box-info" markdown="1">
 
-Voici quelques exemples d'images du dataset utilisé pour entraîner et tester le modèle YOLOv8, avec leurs annotations correspondantes :
-
-![C5](/assets/img/AirCraft/C5.jpg)
-
-Cette image montre un avion C5 Galaxy, un avion de transport militaire lourd utilisé par l'US Air Force. Les avions militaires peuvent avoir des formes et des tailles variées, ce qui rend leur détection et classification difficiles pour les modèles d'Object Detection.  
-
-![Mirage2000](/assets/img/AirCraft/Mirage2000.jpg)
-
-Cette image montre un avion Mirage 2000 qui est un avion de chasse conçu par la société française Dassault Aviation, à la fin des années 1970. Le Mirage 2000 est principalement utilisé par l'Armée de l'Air française qui en a reçu 315 exemplaires, tandis que 286 autres ont été exportés vers huit pays différents.  
-
-Dans le set de données, il y a tous types d'images, des images plus ou moins claires, des images avec un ou plusieurs avions, d'autres avec des avions de différentes classes, etc. Cela permet de tester la capacité du modèle à détecter et classifier les avions dans des contextes variés.
-
-### Exemple de Fichier CSV  
+<div class="title"> Exemple de Fichier CSV </div>
 
 | filename                         | width | height | class | xmin | ymin | xmax | ymax |
 |----------------------------------|-------|--------|-------|------|------|------|------|
@@ -67,24 +63,59 @@ Dans le set de données, il y a tous types d'images, des images plus ou moins cl
 
 Ces données fournissent une base solide pour entraîner et **tester** notre modèle YOLOv8, en permettant de reconnaître avec précision divers types d'avions militaires dans des contextes variés.
 
+</div>
+
+### Exemple d'Images du Dataset
+
+Voici quelques exemples d'images du dataset utilisé pour entraîner et tester le modèle YOLOv8, avec leurs annotations correspondantes :
+
+![C5](/assets/img/AirCraft/C5.jpg)
+
+Cette image montre un avion **C5 Galaxy**, un avion de transport militaire lourd utilisé par l'US Air Force. Les avions militaires peuvent avoir des formes et des tailles variées, ce qui rend leur détection et classification difficiles pour les modèles d'Object Detection.  
+
+![Mirage2000](/assets/img/AirCraft/Mirage2000.jpg)
+
+Cette image montre un avion **Mirage 2000** qui est un avion de chasse conçu par la société française Dassault Aviation, à la fin des années 1970. Le **Mirage 2000** est principalement utilisé par l'Armée de l'Air française qui en a reçu 315 exemplaires, tandis que 286 autres ont été exportés vers huit pays différents.  
+
+Dans le set de données, il y a tous types d'images, des images plus ou moins claires, des images avec un ou plusieurs avions, d'autres avec des avions de différentes classes, etc. Cela permet de tester la capacité du modèle à détecter et classifier les avions dans des **contextes variés.**
+
+
 ## Entrainement du modèle
 
-Pour entrainer un **modèle YOLOv8**, il est essentiel de disposer d'un ensemble de données étiquetées, qui servira de base pour l'apprentissage du modèle. Dans ce projet, nous avons utilisé un ensemble de données comprenant 14 500 images d'avions militaires, chacune étant annotée avec les coordonnées des avions présents et leur classification.
+Pour entrainer un **modèle YOLOv8**, il est essentiel de disposer d'un ensemble de données étiquetées, qui servira de base pour l'apprentissage du modèle. Dans ce projet, nous avons utilisé un ensemble de données comprenant 14 500 images d'avions militaires, chacune étant annotée avec les `coordonnées` des avions présents et leur `classification`.
 
 ### Train Validation Test Split
 
-Avant de commencer l'entraînement, nous avons divisé notre ensemble de données en trois parties distinctes : un ensemble d'entraînement (70%), un ensemble de validation (15%) et un ensemble de test (15%). Cette division nous permet de vérifier la performance du modèle sur des données inédites et de s'assurer qu'il généralise bien aux images qu'il n'a pas encore vues.
+Avant de commencer l'entraînement, nous avons divisé notre ensemble de données en trois parties distinctes : un ensemble d'entraînement **(70%)**, un ensemble de validation **(15%)** et un ensemble de test **(15%)**. Cette division nous permet de vérifier la performance du modèle sur des données inédites et de s'assurer qu'il généralise bien aux images qu'il n'a pas encore vues.
+
+
+```mermaid
+graph TD
+    B1 -->|70%| B[Ensemble d'entraînement]
+    C1 -->|15%| C[Ensemble de validation]
+    D1 -->|15%| D[Ensemble de test]
+
+    subgraph Ensemble de données
+        direction LR
+        B1[████████████████████████████████████████████████████████████████████████████████████████████████████████]
+        C1[██████████████████]
+        D1[██████████████████]
+    end
+```
+
 
 ### Etapes de l'Entrainement
 
 #### 1. **Configuration du Modèle**  
 Un fichier de configuration YAML est créé pour spécifier :
 
-Les chemins vers les ensembles d'entraînement, de validation et de test.
-Le nombre de classes à détecter.
-Les noms des classes.
+- Les chemins vers les ensembles d'entraînement, de validation et de test.
+- Le nombre de classes à détecter.
+- Les noms des classes.
 
-Exemple de configuration :  
+<div class="box-info" markdown="1">
+
+<div class="title"> Exemple de configuration : </div>
 
 ```yaml 
 train: ../data/train.txt
@@ -94,23 +125,25 @@ nc: 3
 names: ['F35', 'JAS39', 'B52']
 ```
 
+</div>
+
 #### 2. **Architecture du Modèle**  
 YOLOv8 utilise une architecture de réseau de neurones convolutifs (CNN) avec plusieurs couches :  
 
-*Convolutionnelles* : Pour extraire les caractéristiques des images.  
-*Couches d'activation* : Pour introduire la non-linéarité.  
-*Couches de mise en commun (pooling)* : Pour réduire la dimensionnalité.  
-*Couches de prédiction* : Pour générer les prédictions des boîtes englobantes et des classes.  
+- **Convolutionnelles** : Pour extraire les caractéristiques des images.  
+- **Couches d'activation** : Pour introduire la non-linéarité.  
+- **Couches de mise en commun (pooling)** : Pour réduire la dimensionnalité.  
+- **Couches de prédiction** : Pour générer les prédictions des boîtes englobantes et des classes.  
 
 Chaque couche est conçue pour capturer des informations spécifiques des images et les combiner pour produire des prédictions précises.  
 
 #### 3. **Processus d'Entraînement**   
 Pendant l'entraînement, le modèle passe par les étapes suivantes :   
 
-*Propagation avant* : L'image passe à travers les couches du modèle, produisant des prédictions.  
-*Calcul de la perte* : La différence entre les prédictions et les annotations réelles est calculée. La fonction de perte de YOLO combine les erreurs de classification, de localisation des boîtes et des objets manquants.  
-*Propagation arrière* : Les gradients de la perte sont calculés et utilisés pour mettre à jour les poids du modèle via l'algorithme de descente de gradient.  
-*Validation* : Après chaque epoch, le modèle est évalué sur l'ensemble de validation pour ajuster les hyperparamètres et éviter le surapprentissage.  
+- **Propagation avant** : L'image passe à travers les couches du modèle, produisant des prédictions.  
+- **Calcul de la perte** : La différence entre les prédictions et les annotations réelles est calculée. La fonction de perte de YOLO combine les erreurs de classification, de localisation des boîtes et des objets manquants.  
+- **Propagation arrière** : Les gradients de la perte sont calculés et utilisés pour mettre à jour les poids du modèle via l'algorithme de descente de gradient.  
+- **Validation** : Après chaque epoch, le modèle est évalué sur l'ensemble de validation pour ajuster les hyperparamètres et éviter le surapprentissage.  
 
 
 ## Validation du Modèle
@@ -124,7 +157,9 @@ Après l'entraînement, le modèle est évalué sur l'ensemble de test pour mesu
 
 Ces métriques permettent d'évaluer la capacité du modèle à détecter et classifier les avions militaires avec précision et rappel, tout en minimisant les fausses détections et les faux négatifs.
 
-Voici un exemple de code pour évaluer le modèle sur l'ensemble de test :
+<div class="box-info" markdown="1">
+
+<div class="title"> Voici un exemple de code pour évaluer le modèle sur l'ensemble de test : </div>
 
 ```python
 !yolo val \
@@ -134,9 +169,16 @@ augment \
 batch=12 \
 imgsz=1280
 ```
+
+</div>
+
 Ce code est utilisé pour évaluer le modèle sur l'ensemble de validation, en utilisant le modèle entraîné et les paramètres spécifiés dans le fichier de configuration YAML.
 
 Voici les résultats de l'évaluation du modèle sur l'ensemble de validation :
+
+<details class="details-block" markdown="1">
+<summary> Résultats de l'évaluation du modèle </summary>
+
 
 | Class        | Images | Instances | Box(P) | R    | mAP50 | m   |
 |--------------|--------|-----------|-------|------|-------|-----|
@@ -187,6 +229,8 @@ Voici les résultats de l'évaluation du modèle sur l'ensemble de validation :
 
 
 Globalement, les métriques montrent que le modèle a une bonne précision (0.944) et un bon rappel (0.86). Les valeurs de mAP50 et mAP50-95 indiquent une performance élevée pour la plupart des classes d'avions, avec des scores proches ou supérieurs à 0.9, ce qui démontre l'efficacité du modèle à détecter les avions dans les images. Il est important de noter que certaines classes ont des scores plus bas, ce qui peut être dû à des variations dans les données d'entraînement ou à des caractéristiques spécifiques des avions. Ces résultats peuvent être utilisés pour améliorer le modèle en ajustant les hyperparamètres ou en collectant davantage de données pour les classes sous-représentées.
+
+</details>
 
 ## Test du modèle sur des images
 
@@ -244,11 +288,11 @@ for img_path, ann_path, result in zip(sampled_image_paths, sampled_annotation_pa
     plt.show()
 ```
 
-Ce code charge le modèle YOLOv8 entraîné, sélectionne quelques images aléatoires du dataset test, fait des prédictions sur ces images et affiche les résultats. Les annotations réelles sont également affichées dans des prints pour comparer les prédictions du modèle avec les vérités terrain.
+Ce code charge le modèle **YOLOv8 entraîné**, sélectionne quelques images aléatoires du dataset test, fait des prédictions sur ces images et affiche les résultats. Les annotations réelles sont également affichées dans des prints pour comparer les prédictions du modèle avec les vérités terrain.
 
 ### Test sur images réelles
 
-En plus des images du dataset test, nous pouvons également tester le modèle sur des images hors échantillon pour évaluer sa capacité à généraliser à de nouvelles données. J'ai choisi une image de Rafale sur google image pour tester le modèle.
+En plus des images du dataset test, nous pouvons également tester le modèle sur des **images hors échantillon** pour évaluer sa capacité à généraliser à de nouvelles données. J'ai choisi une image de Rafale sur google image pour tester le modèle.
 
 Voici l'image de Rafale utilisée pour le test et la prédiction du modèle :
 
@@ -258,7 +302,7 @@ On peut voir que le modèle a correctement détecté et classifié les deux avio
 
 ## Test du modèle sur des vidéos
 
-En plus des images, le modèle YOLOv8 peut également être utilisé pour détecter des avions dans des vidéos. J'ai testé le modèle sur une vidéo de présentation du Rafale sur YouTube. Voici le lien de la vidéo : [Rafale Video](https://www.youtube.com/watch?v=OCghuDF5sec)
+En plus des images, le modèle YOLOv8 peut également être utilisé pour détecter des avions **dans des vidéos**. J'ai testé le modèle sur une vidéo de présentation du Rafale sur YouTube. Voici le lien de la vidéo : [Rafale Video](https://www.youtube.com/watch?v=OCghuDF5sec)
 
 Après avoir téléchargé la vidéo, j'ai extrait des images de la vidéo à intervalles réguliers et utilisé le modèle YOLOv8 pour détecter les avions dans chaque image. Voici un exemple de code pour détecter les avions dans une vidéo :
 
@@ -308,18 +352,24 @@ Voici un exemple de la vidéo annotée avec les détections de YOLOv8 :
   <source src="/assets/vid/AirCraft/rafalevideo.mp4" type="video/mp4">
 </video>
 
-La vidéo montre les détections de YOLOv8 sur la vidéo de présentation du Rafale, avec des boîtes englobantes et des prédictions de classe pour chaque avion détecté. Le modèle est capable de détecter les avions en mouvement dans la vidéo, démontrant sa capacité à traiter des séquences vidéo en temps réel. Cependant, nous pouvons observer que le modèle a parfois des difficultés à détecter les avions lorsqu'ils sont partiellement cachés ou quand on les voit de dos. Par exemple dans la vidéo, le modèle a du mal à détecter les avions Rafale lorsqu'ils sont vus de dos, il a tendance à les confondre avec d'autres avions, notamment avec l'EF2000 et le tornado.  
+La vidéo montre les **détections de YOLOv8** sur la vidéo de présentation du **Rafale**, avec des **boîtes englobantes** et des **prédictions de classe** pour chaque avion détecté. Le modèle est capable de détecter les avions en mouvement dans la vidéo, démontrant sa capacité à **traiter des séquences vidéo en temps réel**.
 
-Cela souligne l'importance de la qualité des données d'entraînement et de la diversité des exemples pour améliorer la performance du modèle dans des conditions variées.
+Cependant, nous pouvons observer que le modèle a parfois des difficultés à détecter les avions lorsqu'ils sont **partiellement cachés** ou **vus de dos**. Par exemple, dans la vidéo, le modèle a du mal à détecter les avions Rafale lorsqu'ils sont vus de dos, il a tendance à les **confondre avec d'autres avions**, notamment avec l'**EF2000** et le **Tornado**.
 
-Nous pouvons essayer le modèle sur une autre video où la visibilité des avions est moins bonne pour voir si le modèle arrive à les détecter.
+Cela souligne **l'importance de la qualité des données d'entraînement** et de la **diversité des exemples** pour améliorer la performance du modèle dans des conditions variées.
+
+Nous pouvons essayer le modèle sur une **autre vidéo** où la **visibilité des avions est moins bonne** pour voir si le modèle arrive à les détecter.
+
 
 <video width="640" height="360" controls>
   <source src="/assets/vid/AirCraft/F22video.mp4" type="video/mp4">
 </video>
 
-Ceci est un exemple de vidéo annotée avec les détections de YOLOv8 sur une vidéo de présentation du F22. Le modèle a plutôt bien réussi à détecter l'avion dans la vidéo, mais il a rencontré des difficultés à classifier l'avion correctement. Il semble que le modèle ait confondu le F22 avec d'autres avions, notamment le F35. Cela peut être dû à des similitudes dans les caractéristiques visuelles des avions ou à des variations dans les données d'entraînement.
+Ceci est un exemple de vidéo annotée avec les détections de YOLOv8 sur une vidéo de présentation du **F22**. Le modèle a plutôt bien réussi à détecter l'avion dans la vidéo, mais il a rencontré des **difficultés** à classifier l'avion correctement. Il semble que le modèle ait **confondu** le **F22** avec d'autres avions, notamment le **F35**. Cela peut être dû à des similitudes dans les **caractéristiques visuelles** des avions ou à des variations dans les données d'entraînement.
 
 ## Conclusion
 
-Dans ce projet, j'ai utilisé un modèle YOLOv8 pour détecter et classifier les avions militaires sur des images et des vidéos. Le modèle a été entraîné sur un ensemble de données comprenant 14 500 images d'avions militaires, avec des annotations détaillées pour chaque image. Après l'entraînement et la validation, le modèle a montré de bonnes performances en termes de précision et de rappel, avec des scores élevés pour la plupart des classes d'avions. Les tests sur des images et des vidéos réelles ont également montré que le modèle est capable de détecter les avions dans des conditions variées, bien qu'il puisse rencontrer des difficultés avec des avions partiellement cachés ou dans des angles inhabituels.
+Dans ce projet, j'ai utilisé un modèle **YOLOv8** pour **détecter** et **classifier** les **avions militaires** sur des **images** et des **vidéos**. Le modèle a été **entraîné** sur un ensemble de données comprenant **14 500 images d'avions militaires**, avec des **annotations détaillées** pour chaque image.
+
+Après l'entraînement et la validation, le modèle a montré de **solides performances** en termes de **précision** et de **rappel**, avec des **scores élevés** pour la plupart des classes d'avions. Les **tests sur des images et des vidéos réelles** ont également démontré que le modèle est capable de **détecter les avions dans des conditions variées**, bien qu'il puisse parfois rencontrer des **difficultés avec des avions partiellement cachés** ou lorsqu'ils sont capturés sous des **angles inhabituels**.
+

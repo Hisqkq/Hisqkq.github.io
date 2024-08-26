@@ -2,12 +2,10 @@ module Jekyll
     class CustomTags < Liquid::Block
       def initialize(tag_name, markup, tokens)
         super
-        # Check if the markup contains a space, indicating both tag type and title
         if markup.strip.include?(" ")
           @box_type, @title = markup.strip.split(" ", 2)
           @title = @title&.gsub(/^"(.*)"$/, '\1')
         else
-          # If no space, treat the markup as only tag type and set title to nil
           @box_type = markup.strip
           @title = nil
         end
