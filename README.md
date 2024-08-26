@@ -1,6 +1,8 @@
 # Mon Portfolio Data
 
-Bienvenue sur le dépôt de mon portfolio ! Je suis un étudiant passionné en Master d'Ingénierie de la Statistique et de l'Informatique à l'Université de Bordeaux. Mon intérêt se porte particulièrement sur la Data Science et l'IA. Je m'interesse également au data engineering et à la gestion de bases de données. Ce site regroupe mes projets universitaires ainsi que mes projets personnels, illustrant mon parcours et mes compétences dans ces domaines passionnants.
+Bienvenue sur le dépôt de mon portfolio ! Je suis un étudiant passionné en deuxième année de Master d'Ingénierie de la Statistique et de l'Informatique à l'Université de Bordeaux. Mon intérêt se porte particulièrement sur la Data Science et l'IA. Je m'interesse également au data engineering et à la gestion de bases de données. Ce site regroupe mes projets universitaires ainsi que mes projets personnels, illustrant mon parcours et mes compétences dans ces domaines passionnants.  
+
+**Je suis actuellement à la recherche d'un stage de fin d'études dans le domaine de la Data. N'hésitez pas à me contacter si vous avez des opportunités à me proposer !**
 
 ## 📚 À Propos de Moi
 
