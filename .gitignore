@@ -27,3 +27,5 @@ assets/js/dist
 
 # Others
 pdf.py
+Dockerfile
+.devcontainer
