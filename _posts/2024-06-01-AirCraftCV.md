@@ -1,10 +1,10 @@
 ---
-title: Détection d'avions militaires
-description: Détection d'avions militaires sur des images et vidéos à l'aide de YOLOv8.
+title: Military Aircraft Detection
+description: Military aircraft detection in images and videos using YOLOv8.
 author: <author_id>
 date: 2024-06-01 11:33:00 +0800
-categories: [Projet Personnel, Deep Learning]
-tags: [projet, computer vision, YOLOv8, Deep Learning, Object Detection, detection, classification]
+categories: [Personal Project, Deep Learning]
+tags: [project, computer vision, YOLOv8, Deep Learning, Object Detection, classification]
 pin: false
 math: true
 mermaid: true
@@ -13,46 +13,46 @@ image:
   alt: F18 airplanes detection
 ---
 
-# Détection d'avions militaires sur des images et vidéos à l'aide de YOLOv8
+# Military Aircraft Detection in Images and Videos using YOLOv8
 
 ## Introduction
 
-Dans ce projet, j'ai utilisé un modèle **YOLOv8** pour d**étecter et classifier les avions militaires** sur des images et des vidéos. L'objectif est de montrer la puissance de l'Object Detection dans le domaine de la **Computer Vision**, en particulier pour la reconnaissance d'objets complexes et en mouvement, et notament pour des objets ayant des caractéristiques similaires comme les avions militaires.
+In this project, I used a **YOLOv8** model to **detect and classify military aircraft** in images and videos. The goal is to demonstrate the power of Object Detection in the field of **Computer Vision**, particularly for the recognition of complex and moving objects, especially objects with similar characteristics like military aircraft.
 
-> Le notebook associé à ce projet est disponible sur [ce lien Kaggle](https://www.kaggle.com/code/hisakaa/yolov8-aircraft-detection/).
+> The notebook associated with this project is available at [this Kaggle link](https://www.kaggle.com/code/hisakaa/yolov8-aircraft-detection/).
 {: .prompt-info }
 
 ## YOLOv8
 
-YOLOv8 est un modèle d'Object Detection basé sur le réseau de neurones YOLO (You Only Look Once). Il s'agit de la huitième version de ce modèle, qui a été amélioré pour être plus rapide et plus précis que ses prédécesseurs. Développé par Ultralytics, YOLOv8 offre des améliorations significatives en termes de précision et de vitesse par rapport à ses prédécesseurs.
+YOLOv8 is an Object Detection model based on the YOLO (You Only Look Once) neural network. It is the eighth version of this model, which has been improved to be faster and more accurate than its predecessors. Developed by Ultralytics, YOLOv8 offers significant improvements in terms of accuracy and speed compared to its previous versions.
 
 <div class="box-info" markdown="1">
-<div class="title">Caractéristiques Principales de YOLOv8</div>
+<div class="title">Main Features of YOLOv8</div>
 
-- **Détection en temps réel** : Capable de traiter des vidéos en direct pour détecter des objets instantanément.
-- **Haute Précision** : Utilise des techniques avancées de deep learning pour fournir des prédictions précises.
-- **Efficacité** : Conçu pour être utilisé même sur des machines avec des ressources limitées, comme des ordinateurs portables sans GPU puissant.
+- **Real-time Detection**: Capable of processing live videos to detect objects instantly.
+- **High Accuracy**: Uses advanced deep learning techniques to provide precise predictions.
+- **Efficiency**: Designed to be used even on machines with limited resources, such as laptops without a powerful GPU.
 
 </div>
 
 <div class="box-tip" markdown="1">
-<div class="title">Avantages de YOLOv8</div>
+<div class="title">Advantages of YOLOv8</div>
 
-- **Vitesse** : Optimisé pour la rapidité, ce qui est essentiel pour des applications telles que la surveillance aérienne.
-- **Polyvalence** : Peut être appliqué à divers types d'objets et contextes, y compris la détection d'avions dans des images et des vidéos.
-- **Facilité d'Utilisation** : Intégré avec des outils de développement populaires et bien documenté, ce qui facilite sa mise en œuvre.
+- **Speed**: Optimized for speed, which is crucial for applications like aerial surveillance.
+- **Versatility**: Can be applied to various types of objects and contexts, including aircraft detection in images and videos.
+- **Ease of Use**: Integrated with popular development tools and well-documented, making it easy to implement.
 
 </div>
 
-En utilisant YOLOv8, ce projet vise à démontrer comment les technologies modernes de vision par ordinateur peuvent être appliquées efficacement pour la détection d'objets spécifiques dans des images et des vidéos, contribuant ainsi à des domaines tels que la sécurité et la surveillance aérienne.
+By using YOLOv8, this project aims to demonstrate how modern computer vision technologies can be effectively applied for detecting specific objects in images and videos, contributing to fields such as security and aerial surveillance.
 
 ## Dataset
 
-Nous disposons d'un riche ensemble de données comprenant 14 500 images, chacune contenant un ou plusieurs avions. Pour chaque image, un fichier CSV associé fournit des annotations détaillées des avions présents, incluant les coordonnées de leurs positions (xmin, ymin, xmax, ymax) ainsi que leur classification.
+We have a rich dataset containing 14,500 images, each containing one or more aircraft. For each image, an associated CSV file provides detailed annotations of the aircraft present, including the coordinates of their positions (xmin, ymin, xmax, ymax) and their classification.
 
 <div class="box-info" markdown="1">
 
-<div class="title"> Exemple de Fichier CSV </div>
+<div class="title"> Example of a CSV File </div>
 
 | filename                         | width | height | class | xmin | ymin | xmax | ymax |
 |----------------------------------|-------|--------|-------|------|------|------|------|
@@ -61,32 +61,31 @@ Nous disposons d'un riche ensemble de données comprenant 14 500 images, chacune
 | 000aa01b25574f28b654718db0700f72 | 2048  | 1365   | JAS39 | 125  | 908  | 440  | 1009 |
 | 000aa01b25574f28b654718db0700f72 | 2048  | 1365   | B52   | 277  | 901  | 1288 | 1177 |
 
-Ces données fournissent une base solide pour entraîner et **tester** notre modèle YOLOv8, en permettant de reconnaître avec précision divers types d'avions militaires dans des contextes variés.
+This data provides a solid foundation for training and **testing** our YOLOv8 model, enabling it to accurately recognize various types of military aircraft in different contexts.
 
 </div>
 
-### Exemple d'Images du Dataset
+### Sample Images from the Dataset
 
-Voici quelques exemples d'images du dataset utilisé pour entraîner et tester le modèle YOLOv8, avec leurs annotations correspondantes :
+Here are some sample images from the dataset used to train and test the YOLOv8 model, along with their corresponding annotations:
 
 ![C5](/assets/img/AirCraft/C5.jpg)
 
-Cette image montre un avion **C5 Galaxy**, un avion de transport militaire lourd utilisé par l'US Air Force. Les avions militaires peuvent avoir des formes et des tailles variées, ce qui rend leur détection et classification difficiles pour les modèles d'Object Detection.  
+This image shows a **C5 Galaxy** aircraft, a heavy military transport aircraft used by the US Air Force. Military aircraft can have various shapes and sizes, making their detection and classification challenging for Object Detection models.
 
 ![Mirage2000](/assets/img/AirCraft/Mirage2000.jpg)
 
-Cette image montre un avion **Mirage 2000** qui est un avion de chasse conçu par la société française Dassault Aviation, à la fin des années 1970. Le **Mirage 2000** est principalement utilisé par l'Armée de l'Air française qui en a reçu 315 exemplaires, tandis que 286 autres ont été exportés vers huit pays différents.  
+This image shows a **Mirage 2000** aircraft, a fighter jet designed by the French company Dassault Aviation in the late 1970s. The **Mirage 2000** is primarily used by the French Air Force, which received 315 units, while 286 others were exported to eight different countries.
 
-Dans le set de données, il y a tous types d'images, des images plus ou moins claires, des images avec un ou plusieurs avions, d'autres avec des avions de différentes classes, etc. Cela permet de tester la capacité du modèle à détecter et classifier les avions dans des **contextes variés.**
+The dataset contains all types of images—some clearer than others, images with one or multiple aircraft, and others with aircraft from different classes. This allows us to test the model's ability to detect and classify aircraft in **varied contexts**.
 
+## Model Training
 
-## Entrainement du modèle
-
-Pour entrainer un **modèle YOLOv8**, il est essentiel de disposer d'un ensemble de données étiquetées, qui servira de base pour l'apprentissage du modèle. Dans ce projet, nous avons utilisé un ensemble de données comprenant 14 500 images d'avions militaires, chacune étant annotée avec les `coordonnées` des avions présents et leur `classification`.
+To train a **YOLOv8 model**, it is essential to have a labeled dataset that will serve as the basis for the model’s learning. In this project, we used a dataset containing 14,500 images of military aircraft, each annotated with the `coordinates` of the aircraft present and their `classification`.
 
 ### Train Validation Test Split
 
-Avant de commencer l'entraînement, nous avons divisé notre ensemble de données en trois parties distinctes : un ensemble d'entraînement **(70%)**, un ensemble de validation **(15%)** et un ensemble de test **(15%)**. Cette division nous permet de vérifier la performance du modèle sur des données inédites et de s'assurer qu'il généralise bien aux images qu'il n'a pas encore vues.
+Before starting the training, we split our dataset into three distinct parts: a training set **(70%)**, a validation set **(15%)**, and a test set **(15%)**. This division allows us to check the model's performance on unseen data and ensure it generalizes well to images it has not seen before.
 
 
 ```mermaid
@@ -95,7 +94,7 @@ graph TD
     C1 -->|15%| C[Ensemble de validation]
     D1 -->|15%| D[Ensemble de test]
 
-    subgraph Ensemble de données
+    subgraph Dataset
         direction LR
         B1[████████████████████████████████████████████████████████████████████████████████████████████████████████]
         C1[██████████████████]
@@ -104,18 +103,18 @@ graph TD
 ```
 
 
-### Etapes de l'Entrainement
+### Training Steps
 
-#### 1. **Configuration du Modèle**  
-Un fichier de configuration YAML est créé pour spécifier :
+#### 1. **Model Configuration**  
+A YAML configuration file is created to specify:
 
-- Les chemins vers les ensembles d'entraînement, de validation et de test.
-- Le nombre de classes à détecter.
-- Les noms des classes.
+- The paths to the training, validation, and test sets.
+- The number of classes to detect.
+- The class names.
 
 <div class="box-info" markdown="1">
 
-<div class="title"> Exemple de configuration : </div>
+<div class="title"> Example Configuration: </div>
 
 ```yaml 
 train: ../data/train.txt
@@ -127,39 +126,39 @@ names: ['F35', 'JAS39', 'B52']
 
 </div>
 
-#### 2. **Architecture du Modèle**  
-YOLOv8 utilise une architecture de réseau de neurones convolutifs (CNN) avec plusieurs couches :  
+#### 2. **Model Architecture**  
+YOLOv8 uses a convolutional neural network (CNN) architecture with several layers:  
 
-- **Convolutionnelles** : Pour extraire les caractéristiques des images.  
-- **Couches d'activation** : Pour introduire la non-linéarité.  
-- **Couches de mise en commun (pooling)** : Pour réduire la dimensionnalité.  
-- **Couches de prédiction** : Pour générer les prédictions des boîtes englobantes et des classes.  
+- **Convolutional layers**: To extract features from the images.  
+- **Activation layers**: To introduce non-linearity.  
+- **Pooling layers**: To reduce dimensionality.  
+- **Prediction layers**: To generate predictions for bounding boxes and classes.  
 
-Chaque couche est conçue pour capturer des informations spécifiques des images et les combiner pour produire des prédictions précises.  
+Each layer is designed to capture specific information from the images and combine it to produce accurate predictions.  
 
-#### 3. **Processus d'Entraînement**   
-Pendant l'entraînement, le modèle passe par les étapes suivantes :   
+#### 3. **Training Process**   
+During training, the model goes through the following steps:   
 
-- **Propagation avant** : L'image passe à travers les couches du modèle, produisant des prédictions.  
-- **Calcul de la perte** : La différence entre les prédictions et les annotations réelles est calculée. La fonction de perte de YOLO combine les erreurs de classification, de localisation des boîtes et des objets manquants.  
-- **Propagation arrière** : Les gradients de la perte sont calculés et utilisés pour mettre à jour les poids du modèle via l'algorithme de descente de gradient.  
-- **Validation** : Après chaque epoch, le modèle est évalué sur l'ensemble de validation pour ajuster les hyperparamètres et éviter le surapprentissage.  
+- **Forward propagation**: The image passes through the model's layers, producing predictions.  
+- **Loss calculation**: The difference between the predictions and the actual annotations is calculated. YOLO's loss function combines classification errors, localization errors, and missing objects.  
+- **Backward propagation**: The loss gradients are calculated and used to update the model's weights through the gradient descent algorithm.  
+- **Validation**: After each epoch, the model is evaluated on the validation set to adjust hyperparameters and prevent overfitting.  
 
 
-## Validation du Modèle
+## Model Validation
 
-Après l'entraînement, le modèle est évalué sur l'ensemble de test pour mesurer sa performance. Les métriques suivantes sont utilisées pour évaluer la qualité des prédictions :
+After training, the model is evaluated on the test set to measure its performance. The following metrics are used to assess the quality of the predictions:
 
-- **Box(P)**: Précision des détections des boîtes englobantes.
-- **R**: Rappel, mesure de la capacité du modèle à retrouver toutes les instances pertinentes.
-- **mAP50**: Mean Average Precision à 50% IoU (Intersection over Union), mesure la précision moyenne à un seuil de 50% d'IoU.
-- **mAP50-95**: Mean Average Precision à différents seuils d'IoU, de 50% à 95%.
+- **Box(P)**: Precision of the bounding box detections.
+- **R**: Recall, measuring the model's ability to find all relevant instances.
+- **mAP50**: Mean Average Precision at 50% IoU (Intersection over Union), measuring the average precision at a 50% IoU threshold.
+- **mAP50-95**: Mean Average Precision at different IoU thresholds, from 50% to 95%.
 
-Ces métriques permettent d'évaluer la capacité du modèle à détecter et classifier les avions militaires avec précision et rappel, tout en minimisant les fausses détections et les faux négatifs.
+These metrics evaluate the model's ability to detect and classify military aircraft with precision and recall, while minimizing false positives and false negatives.
 
 <div class="box-info" markdown="1">
 
-<div class="title"> Voici un exemple de code pour évaluer le modèle sur l'ensemble de test : </div>
+<div class="title"> Here is an example code to evaluate the model on the test set: </div>
 
 ```python
 !yolo val \
@@ -172,12 +171,13 @@ imgsz=1280
 
 </div>
 
-Ce code est utilisé pour évaluer le modèle sur l'ensemble de validation, en utilisant le modèle entraîné et les paramètres spécifiés dans le fichier de configuration YAML.
+This code is used to evaluate the model on the validation set, using the trained model and the parameters specified in the YAML configuration file.
 
-Voici les résultats de l'évaluation du modèle sur l'ensemble de validation :
+Here are the results of the model evaluation on the validation set:
 
 <details class="details-block" markdown="1">
-<summary> Résultats de l'évaluation du modèle </summary>
+<summary> Model Evaluation Results </summary>
+
 
 
 | Class        | Images | Instances | Box(P) | R    | mAP50 | m   |
@@ -228,15 +228,16 @@ Voici les résultats de l'évaluation du modèle sur l'ensemble de validation :
 | J20          | 47     | 76        | 0.906 | 0.776| 0.896 | 0.856|
 
 
-Globalement, les métriques montrent que le modèle a une bonne précision (0.944) et un bon rappel (0.86). Les valeurs de mAP50 et mAP50-95 indiquent une performance élevée pour la plupart des classes d'avions, avec des scores proches ou supérieurs à 0.9, ce qui démontre l'efficacité du modèle à détecter les avions dans les images. Il est important de noter que certaines classes ont des scores plus bas, ce qui peut être dû à des variations dans les données d'entraînement ou à des caractéristiques spécifiques des avions. Ces résultats peuvent être utilisés pour améliorer le modèle en ajustant les hyperparamètres ou en collectant davantage de données pour les classes sous-représentées.
+
+Overall, the metrics show that the model has good precision (0.944) and recall (0.86). The mAP50 and mAP50-95 values indicate high performance for most aircraft classes, with scores close to or above 0.9, demonstrating the model's effectiveness in detecting aircraft in images. It is important to note that some classes have lower scores, which could be due to variations in the training data or specific characteristics of the aircraft. These results can be used to improve the model by adjusting the hyperparameters or collecting more data for underrepresented classes.
 
 </details>
 
-## Test du modèle sur des images
+## Testing the Model on Images
 
-### Test sur dataset test
+### Test on Test Dataset
 
-Après l'entraînement et la validation du modèle, nous pouvons le tester sur des images réelles pour évaluer sa performance en conditions réelles. Voici un exemple de code pour tester le modèle sur quelques images du dataset test :
+After training and validating the model, we can test it on real images to evaluate its performance under real-world conditions. Here is an example of code to test the model on some images from the test dataset:
 
 ```python
 from ultralytics import YOLO
@@ -246,19 +247,15 @@ import glob
 import random
 import pandas as pd
 
-# Charger le modèle YOLO
 model = YOLO('/kaggle/input/yolov7-military-plane/yolov8-m-best.pt')
 
-# Chemins vers les images et annotations de test
 test_image_paths = sorted(glob.glob('/kaggle/working/ultralytics/data/test/images/*.jpg'))
 test_annotation_paths = sorted(glob.glob('/kaggle/working/ultralytics/data/test/labels/*.txt'))
 
-# Sélectionner quelques images aléatoires
 sampled_indices = random.sample(range(len(test_image_paths)), 5)
 sampled_image_paths = [test_image_paths[i] for i in sampled_indices]
 sampled_annotation_paths = [test_annotation_paths[i] for i in sampled_indices]
 
-# Faire des prédictions sur les images sélectionnées
 results = model(sampled_image_paths)
 
 for img_path, ann_path, result in zip(sampled_image_paths, sampled_annotation_paths, results):
@@ -267,19 +264,17 @@ for img_path, ann_path, result in zip(sampled_image_paths, sampled_annotation_pa
     plt.imshow(image)
     ax = plt.gca()
 
-    # Lire et afficher les annotations réelles
     with open(ann_path, 'r') as f:
         annotations = f.readlines()
     
-    print(f"Annotations réelles pour {img_path}:")
+    print(f"Real Annotations for {img_path}:")
     for annotation in annotations:
         class_num, x_center, y_center, b_width, b_height = map(float, annotation.split())
         class_name = model.names[int(class_num)]
-        print(f"Classe: {class_name}")
+        print(f"Class: {class_name}")
 
-    # Afficher les prédictions du modèle
     for box in result.boxes:
-        x1, y1, x2, y2 = box.xyxy[0].cpu().numpy()  # Déplacer les tenseurs vers la CPU et les convertir en numpy
+        x1, y1, x2, y2 = box.xyxy[0].cpu().numpy() 
         rect = plt.Rectangle((x1, y1), x2 - x1, y2 - y1, fill=False, color='red')
         ax.add_patch(rect)
         plt.text(x1, y1, model.names[int(box.cls[0])], color='white', fontsize=12, bbox=dict(facecolor='red', alpha=0.5))
@@ -288,23 +283,24 @@ for img_path, ann_path, result in zip(sampled_image_paths, sampled_annotation_pa
     plt.show()
 ```
 
-Ce code charge le modèle **YOLOv8 entraîné**, sélectionne quelques images aléatoires du dataset test, fait des prédictions sur ces images et affiche les résultats. Les annotations réelles sont également affichées dans des prints pour comparer les prédictions du modèle avec les vérités terrain.
+The code loads the **trained YOLOv8 model**, selects a few random images from the test dataset, makes predictions on these images, and displays the results. The ground truth annotations are also printed for comparison with the model's predictions.
 
-### Test sur images réelles
+### Test on Real Images
 
-En plus des images du dataset test, nous pouvons également tester le modèle sur des **images hors échantillon** pour évaluer sa capacité à généraliser à de nouvelles données. J'ai choisi une image de Rafale sur google image pour tester le modèle.
+In addition to the test dataset images, we can also test the model on **out-of-sample images** to assess its ability to generalize to new data. I selected an image of a Rafale from Google Images to test the model.
 
-Voici l'image de Rafale utilisée pour le test et la prédiction du modèle :
+Here is the Rafale image used for the test and the model's prediction:
 
 ![Rafale](/assets/img/AirCraft/RafalePred.jpg)
 
-On peut voir que le modèle a correctement détecté et classifié les deux avions Rafale dans l'image, avec des boîtes englobantes précises et des prédictions de classe correctes. 
+We can see that the model correctly detected and classified the two Rafale aircraft in the image, with accurate bounding boxes and correct class predictions.
 
-## Test du modèle sur des vidéos
+## Testing the Model on Videos
 
-En plus des images, le modèle YOLOv8 peut également être utilisé pour détecter des avions **dans des vidéos**. J'ai testé le modèle sur une vidéo de présentation du Rafale sur YouTube. Voici le lien de la vidéo : [Rafale Video](https://www.youtube.com/watch?v=OCghuDF5sec)
+In addition to images, the YOLOv8 model can also be used to detect aircraft **in videos**. I tested the model on a promotional video of the Rafale on YouTube. Here is the link to the video: [Rafale Video](https://www.youtube.com/watch?v=OCghuDF5sec)
 
-Après avoir téléchargé la vidéo, j'ai extrait des images de la vidéo à intervalles réguliers et utilisé le modèle YOLOv8 pour détecter les avions dans chaque image. Voici un exemple de code pour détecter les avions dans une vidéo :
+After downloading the video, I extracted frames at regular intervals and used the YOLOv8 model to detect the aircraft in each frame. Here is an example of code to detect aircraft in a video:
+
 
 ```python
 import cv2
@@ -322,7 +318,7 @@ def process_video(video_path, output_path):
     new_width = 640
     new_height = int(new_width * height / width)
 
-    fourcc = cv2.VideoWriter_fourcc(*'VP90')  # mp4v pour un format mp4
+    fourcc = cv2.VideoWriter_fourcc(*'VP90') 
     out = cv2.VideoWriter(output_path, fourcc, fps, (new_width, new_height))
 
     while cap.isOpened():
@@ -345,31 +341,30 @@ output_path = '/kaggle/working/annotated_F22_video.mp4'
 
 process_video(F22_video_path, output_path)
 ```
-
-Voici un exemple de la vidéo annotée avec les détections de YOLOv8 :
+Here is an example of the video annotated with YOLOv8 detections:
 
 <video width="640" height="360" controls>
   <source src="/assets/vid/AirCraft/rafalevideo.mp4" type="video/mp4">
 </video>
 
-La vidéo montre les **détections de YOLOv8** sur la vidéo de présentation du **Rafale**, avec des **boîtes englobantes** et des **prédictions de classe** pour chaque avion détecté. Le modèle est capable de détecter les avions en mouvement dans la vidéo, démontrant sa capacité à **traiter des séquences vidéo en temps réel**.
+The video shows **YOLOv8 detections** on the **Rafale** presentation video, with **bounding boxes** and **class predictions** for each detected aircraft. The model is capable of detecting moving aircraft in the video, demonstrating its ability to **process video sequences in real-time**.
 
-Cependant, nous pouvons observer que le modèle a parfois des difficultés à détecter les avions lorsqu'ils sont **partiellement cachés** ou **vus de dos**. Par exemple, dans la vidéo, le modèle a du mal à détecter les avions Rafale lorsqu'ils sont vus de dos, il a tendance à les **confondre avec d'autres avions**, notamment avec l'**EF2000** et le **Tornado**.
+However, we can observe that the model sometimes struggles to detect aircraft when they are **partially hidden** or **seen from behind**. For example, in the video, the model has difficulty detecting Rafale aircraft when they are viewed from behind, and it tends to **confuse them with other aircraft**, particularly the **EF2000** and the **Tornado**.
 
-Cela souligne **l'importance de la qualité des données d'entraînement** et de la **diversité des exemples** pour améliorer la performance du modèle dans des conditions variées.
+This highlights the **importance of training data quality** and the **diversity of examples** to improve the model's performance under various conditions.
 
-Nous pouvons essayer le modèle sur une **autre vidéo** où la **visibilité des avions est moins bonne** pour voir si le modèle arrive à les détecter.
-
+We can try the model on **another video** where the **aircraft visibility is lower** to see if the model can still detect them.
 
 <video width="640" height="360" controls>
   <source src="/assets/vid/AirCraft/F22video.mp4" type="video/mp4">
 </video>
 
-Ceci est un exemple de vidéo annotée avec les détections de YOLOv8 sur une vidéo de présentation du **F22**. Le modèle a plutôt bien réussi à détecter l'avion dans la vidéo, mais il a rencontré des **difficultés** à classifier l'avion correctement. Il semble que le modèle ait **confondu** le **F22** avec d'autres avions, notamment le **F35**. Cela peut être dû à des similitudes dans les **caractéristiques visuelles** des avions ou à des variations dans les données d'entraînement.
+This is an example of a video annotated with YOLOv8 detections on a **F22** presentation video. The model performed relatively well in detecting the aircraft in the video, but it encountered **difficulties** in correctly classifying the aircraft. It seems that the model **confused** the **F22** with other aircraft, notably the **F35**. This may be due to similarities in the **visual characteristics** of the aircraft or variations in the training data.
 
 ## Conclusion
 
-Dans ce projet, j'ai utilisé un modèle **YOLOv8** pour **détecter** et **classifier** les **avions militaires** sur des **images** et des **vidéos**. Le modèle a été **entraîné** sur un ensemble de données comprenant **14 500 images d'avions militaires**, avec des **annotations détaillées** pour chaque image.
+In this project, I used a **YOLOv8** model to **detect** and **classify** **military aircraft** in **images** and **videos**. The model was **trained** on a dataset containing **14,500 images of military aircraft**, with **detailed annotations** for each image.
 
-Après l'entraînement et la validation, le modèle a montré de **solides performances** en termes de **précision** et de **rappel**, avec des **scores élevés** pour la plupart des classes d'avions. Les **tests sur des images et des vidéos réelles** ont également démontré que le modèle est capable de **détecter les avions dans des conditions variées**, bien qu'il puisse parfois rencontrer des **difficultés avec des avions partiellement cachés** ou lorsqu'ils sont capturés sous des **angles inhabituels**.
+After training and validation, the model demonstrated **strong performance** in terms of **precision** and **recall**, with **high scores** for most aircraft classes. The **tests on real images and videos** also showed that the model is capable of **detecting aircraft under various conditions**, although it may sometimes face **challenges with partially hidden aircraft** or when they are captured from **unusual angles**.
+
 

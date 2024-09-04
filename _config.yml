@@ -16,14 +16,14 @@ timezone: Europe/Paris
 
 title: Théo Lavandier # the main title
 
-tagline: Portfolio d'un étudiant en Data Science # the tagline below the title
+tagline: Portfolio of a Data Science student, sharing his projects and experiences. # the tagline below the title
 
 description: >- # used by seo meta and the atom feed
-  Portfolio d'un étudiant en Data Science, partageant ses projets et ses expériences.
+  Data Science student, passionate about programming and AI. I share my projects and experiences on this blog.
 
 # Fill in the protocol & hostname for your site.
 # e.g. 'https://username.github.io', note that it does not end with a '/'.
-url: "https://Theo-Lavandier.github.io"
+url: "https://Hisqkq.github.io"
 
 github:
   username: Hisqkq # change to your github username
