@@ -163,3 +163,199 @@ In this example, we read streaming data from a socket and extract information ab
 We use the `RuneData` case class to define the schema of the data we are working with.
 
 
+## Final Project: Analyzing Wikipedia Image Data
+
+For the final project of the Big Data course, I analyzed **web crawl data** from **Wikipedia** to extract information related to **images**. The data was stored in the **University's cluster** using **HDFS** for distributed storage.
+In this project, I used **Apache Spark** to process the data and extract insights from it. The analysis focused on computing statistics related to the images, such as the number of images per page, the average image size, the biggest image etc.
+
+### Sinle Warc File Analysis
+
+#### Starting with a Word Count Example
+
+The first important step before going through the cluster was to learn how to analyse WARC files. To do this I have done some single WARC file analysis on zeppelin notebook on the big-data container.
+I downloaded a WARC files from the url https://en.wikipedia.org/wiki/Multilingualism thanks to the following bash command, we are going to use this small WARC file to create our first programs: 
+
+`[ ! -f multilingualism.warc.gz ] && wget -r -l 3 "https://en.wikipedia.org/wiki/Multilingualism" --delete-after --no-directories --warc-file="multilingualism" || echo Most likely, multilingualism.warc.gz already exists`
+
+To get started with Spark, I implemented a simple **word count** example. The goal was to count the frequency of words in a WARC file containing Wikipedia data. The code snippet below shows how I read the WARC file, extracted the text content, tokenized the words, and counted their occurrences.
+
+```scala
+import org.apache.spark.sql.SparkSession
+import org.jsoup.Jsoup
+
+val spark = SparkSession.builder()
+  .appName("WARC Analysis")
+  .getOrCreate()
+
+val warcData = spark.sparkContext.wholeTextFiles(warcfile)
+
+// Extract the text content from the WARC data and remove HTML tags
+val textContent = warcData.flatMap { case (_, content) =>
+  val lines = content.split("\n")
+  val header = lines.take(2) // Header lines
+  val htmlContent = lines.drop(2).mkString("\n") // HTML content
+  val doc = Jsoup.parse(htmlContent)
+  val text = doc.text()
+  val cleanedText = text.replaceAll("\\W+", " ") // Remove non-word characters except spaces
+  cleanedText.split("\\s+")
+}
+
+val wordCount = textContent
+  .map(word => (word.toLowerCase, 1))
+  .reduceByKey(_ + _)
+  .sortBy(_._2, ascending = false)
+
+wordCount.take(5).foreach(println)
+
+spark.stop()
+```
+```text
+(the, 462)
+(disallow, 453)
+(wiki, 422)
+(in, 338)
+(of, 333)
+```
+
+
+This example helped me understand the **basics** of working with Spark on WARCs and text data.
+Now let’s start to play with the images. In Wikipedia, the size of the images on the website are defined using the height and width attributes.
+The images are displayed with the following html format:
+
+```html
+<img src=”image_link”, some_other_things = something, width = value, height = value, >
+```
+
+Then we can use a **regular expression** pattern to catch the element of the WARC files that correspond to this format in order to extract the images. We can use the following regular expression pattern:
+
+`val pattern = """(?i)<img[^>]*src=['"]([^'"]+)[^>]*\swidth\s*=\s*['"](\d+)['"][^>]*\sheight\s*=\s*['"](\d+)['"][^>]*>""".r`
+Here is a program that analyses all the images (corresponding to the regex) of a WARC file:
+
+```scala
+import org.apache.spark.sql.SparkSession
+
+val spark = SparkSession.builder()
+  .appName("WARC Image Analysis")
+  .getOrCreate()
+
+val sc = spark.sparkContext
+val warcFile = sc.wholeTextFiles("file:///opt/hadoop/rubigdata/multilingualism.warc.gz")
+
+// Extract image URLs and compute the arbitrary size for each image
+val imageData = warcFile.flatMap { case (_, content) =>
+  val pattern = """(?i)<img[^>]*src=['"]([^'"]+)[^>]*\swidth\s*=\s*['"](\d+)['"][^>]*\sheight\s*=\s*['"](\d+)['"][^>]*>""".r
+  pattern.findAllMatchIn(content).map { m =>
+    val url = m.group(1)
+    val height = m.group(2).toInt
+    val width = m.group(3).toInt
+    val arbitrarySize = height * width
+    (url, arbitrarySize)
+  }
+}
+
+// Compute the total number of images
+val numImages = imageData.count()
+
+// Compute the mean arbitrary size
+val meanArbitrarySize = imageData.map(_._2).mean()
+
+// Print the total number of images and the mean arbitrary size
+println(s"Total number of images: $numImages")
+println(s"Mean arbitrary size: $meanArbitrarySize")
+
+spark.stop()
+```
+
+```text
+Total number of images: 31
+Mean arbitrary size: 24877.967
+```
+
+To improve our code we could add the following features:
+
+- Select images that are only part of Wikipedia website thanks to a filter on the URL
+- Search for the biggest image (in number of pixels displayed on the website)
+- Find the url of the website that contains the biggest image to see how it is displayed
+- Using the library `HadoopConcatgz` to read WARC files in a more efficient way
+
+Here is a code that implement those features:
+
+
+```scala
+import org.apache.spark.sql.SparkSession
+import org.apache.hadoop.io.NullWritable
+import org.apache.hadoop.fs.FileSystem
+import org.apache.hadoop.mapreduce.lib.input.TextInputFormat
+import de.l3s.concatgz.io.warc.{WarcGzInputFormat, WarcWritable}
+import de.l3s.concatgz.data.WarcRecord
+import org.apache.spark.SparkConf
+
+case class ImageData(pageUrl: String, imageUrl: String, size: Int)
+
+val sparkConf = new SparkConf()
+  .setAppName("RUBigDataApp")
+  .set("spark.serializer", "org.apache.spark.serializer.KryoSerializer")
+  .registerKryoClasses(Array(classOf[WarcRecord]))
+
+val spark = SparkSession.builder.config(sparkConf).getOrCreate()
+import spark.implicits._
+
+val fs = FileSystem.get(spark.sparkContext.hadoopConfiguration)
+
+val warcFile = "/opt/hadoop/rubigdata/multilingualism.warc.gz"
+
+val sc = spark.sparkContext
+
+val warcs = sc.newAPIHadoopFile(
+  warcFile,
+  classOf[WarcGzInputFormat],             // InputFormat
+  classOf[NullWritable],                  // Key
+  classOf[WarcWritable]                   // Value
+).cache()
+
+// Filter for URLs that contain 'wikipedia.org'
+val filteredWarcs = warcs.filter { case (_, wr) =>
+  val header = wr.getRecord.getHeader
+  header.getHeaderValue("WARC-Type") == "response" &&
+    header.getUrl.contains("wikipedia.org")
+}
+
+val imageData = filteredWarcs.mapPartitions { iter =>
+  iter.flatMap { case (_, wr) =>
+    val content = wr.getRecord.getHttpStringBody
+    val pageUrl = wr.getRecord.getHeader.getUrl
+    val pattern = """(?i)<img[^>]*src=['"]([^'"]+)[^>]*\swidth\s*=\s*['"](\d+)['"][^>]*\sheight\s*=\s*['"](\d+)['"][^>]*>""".r
+    pattern.findAllMatchIn(content).map { m =>
+      val imageUrl = m.group(1)
+      val height = m.group(2).toInt
+      val width = m.group(3).toInt
+      val arbitrarySize = height * width
+      ImageData(pageUrl, imageUrl, arbitrarySize)
+    }
+  }
+}
+
+val numImages = imageData.count()
+val meanArbitrarySize = imageData.map(_.size).mean()
+
+// Search for the largest image in imageData
+val largestImage = imageData.reduce((a, b) => if (a.size > b.size) a else b)
+
+println(s"Total number of images: $numImages")
+println(s"Mean arbitrary size: $meanArbitrarySize")
+println(s"Largest image URL: ${largestImage.imageUrl} with size: ${largestImage.size}")
+println(s"Webpage URL: ${largestImage.pageUrl}")
+
+spark.stop()
+```
+
+```text
+Total number of images: 31
+Mean arbitrary size: 24877.967
+Largest image URL: https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/339px-POla_07.jpg with size: 86106
+Webpage URL: https://en.wikipedia.org/wiki/Multilingualism
+```
+
+> WORK IN PROGRESS
+{: .prompt-info }
+
