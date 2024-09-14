@@ -13,6 +13,8 @@ image:
   alt: Cluster of computers schematics
 ---
 
+<div id="visualization"></div>
+
 # Big Data Analysis with Apache Spark
 
 ## Introduction
@@ -356,6 +358,225 @@ Largest image URL: https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/339
 Webpage URL: https://en.wikipedia.org/wiki/Multilingualism
 ```
 
-> WORK IN PROGRESS
-{: .prompt-info }
+### Standalone application & Multi-WARC files analysis
 
+To analyze multiple WARC files, I created a standalone Spark application that reads some of the WARC files in a directory and processes them in parallel. Let's download two WARC file from the cluster and analyse them locally.
+
+```scala
+package org.rubigdata
+
+import org.apache.hadoop.io.{NullWritable}
+import org.apache.hadoop.fs.{FileSystem, Path}
+import org.apache.hadoop.mapreduce.lib.input.TextInputFormat
+import de.l3s.concatgz.io.warc.{WarcGzInputFormat,WarcWritable}
+import de.l3s.concatgz.data.WarcRecord
+import org.apache.spark.SparkConf
+import org.apache.spark.sql.SparkSession
+
+case class ImageData(pageUrl: String, imageUrl: String, size: Int)
+
+object RUBigDataApp {
+  def main(args: Array[String]) {
+
+    // Overriding default settings
+    val sparkConf = new SparkConf()
+                      .setAppName("RUBigDataApp")
+                      .set("spark.serializer", "org.apache.spark.serializer.KryoSerializer")
+                      .registerKryoClasses(Array(classOf[WarcRecord]))
+
+    val spark = SparkSession.builder.config(sparkConf).getOrCreate()
+    import spark.implicits._
+
+    val fs = FileSystem.get(spark.sparkContext.hadoopConfiguration)
+
+    // List and sort the files
+    val warcDirPath = new Path("/opt/hadoop/rubigdata/")
+    val warcFiles = fs.listStatus(warcDirPath)
+      .filter(fileStatus => fileStatus.getPath.getName.endsWith(".warc.gz"))  // filter for .warc.gz files
+      .sortBy(_.getPath.getName)                                             // sort them
+      .take(2)                                                               // take the first two
+      .map(_.getPath.toString)                                               // convert to string
+
+    val sc = spark.sparkContext
+
+    val warcs = sc.union(warcFiles.map(file => sc.newAPIHadoopFile(
+      file,
+      classOf[WarcGzInputFormat],             // InputFormat
+      classOf[NullWritable],                  // Key
+      classOf[WarcWritable]                   // Value
+    ))).cache()
+
+    val filteredWarcs = warcs.filter { case (_, wr) =>
+      val header = wr.getRecord.getHeader
+      header.getHeaderValue("WARC-Type") == "response" &&
+      header.getUrl.contains("wikipedia.org")
+    }
+
+    val imageData = filteredWarcs.mapPartitions { iter =>
+      iter.flatMap { case (_, wr) =>
+        val content = wr.getRecord.getHttpStringBody
+        val pageUrl = wr.getRecord.getHeader.getUrl
+        val pattern = """(?i)<img[^>]*src=['"]([^'"]+)[^>]*\swidth\s*=\s*['"](\d+)['"][^>]*\sheight\s*=\s*['"](\d+)['"][^>]*>""".r
+        pattern.findAllMatchIn(content).map { m =>
+          val imageUrl = m.group(1)
+          val height = m.group(2).toInt
+          val width = m.group(3).toInt
+          val arbitrarySize = height * width
+          ImageData(pageUrl, imageUrl, arbitrarySize)
+        }
+      }
+    }
+
+    val numImages = imageData.count()
+    val meanArbitrarySize = imageData.map(_.size).mean()
+    val largestImage = imageData.reduce((a, b) => if (a.size > b.size) a else b)
+
+    println(s"Total number of images: $numImages")
+    println(s"Mean arbitrary size: $meanArbitrarySize")
+    println(s"Largest image URL: ${largestImage.imageUrl} with size: ${largestImage.size}")
+    println(s"Webpage URL: ${largestImage.pageUrl}")
+
+    spark.stop()
+  }
+}
+```
+
+Then I used `sbt assembly` to create the jar executable file, and I submitted this file on the big-data container with the command `spark-submit target/scala-2.12/RUBigDataApp-assembly-1.0.jar.`
+
+The job ran on my computer and gave me the following output:
+
+```text
+Total number of images: 1247
+Mean arbitrary size: 8567.973536487572
+Largest image URL: //upload.wikimedia.org/wikipedia/commons/thumb/1/17/Blank_map.svg/400px-Blank_map.svg.png with size: 160000
+Webpage URL: https://ar.wikipedia.org/wiki/كووسادا
+```
+
+
+### Run on the Cluster
+
+Finally, I ran the Spark application on the **University's cluster** to analyze the whole dataset of WARC files. The cluster provided a distributed environment to process the data in parallel, leveraging the computing power of multiple nodes. The analysis focused on extracting image data from the WARC files and computing statistics related to the images.
+
+```scala
+package org.rubigdata
+
+import org.apache.hadoop.io.{NullWritable}
+import org.apache.hadoop.fs.{FileSystem, Path}
+import org.apache.hadoop.mapreduce.lib.input.TextInputFormat
+import de.l3s.concatgz.io.warc.{WarcGzInputFormat,WarcWritable}
+import de.l3s.concatgz.data.WarcRecord
+import org.apache.spark.SparkConf
+import org.apache.spark.sql.SparkSession
+
+// Define the case class outside of the object
+case class ImageData(pageUrl: String, imageUrl: String, size: Int)
+
+object RUBigDataApp {
+  def main(args: Array[String]) {
+
+    // Overriding default settings
+    val sparkConf = new SparkConf()
+                      .setAppName("RUBigDataApp")
+                      .set("spark.serializer", "org.apache.spark.serializer.KryoSerializer")
+                      .registerKryoClasses(Array(classOf[WarcRecord]))
+
+    val spark = SparkSession.builder.config(sparkConf).getOrCreate()
+    import spark.implicits._
+
+    // Getting the FileSystem object
+    val fs = FileSystem.get(spark.sparkContext.hadoopConfiguration)
+
+    // List and sort the files, and take all the WARC files
+    val warcDirPath = new Path("hdfs:///single-warc-segment")
+    val warcFiles = fs.listStatus(warcDirPath)
+      .filter(fileStatus => fileStatus.getPath.getName.endsWith(".warc.gz")) // filter for .warc.gz files
+      .sortBy(_.getPath.getName)                                             // sort them
+      .map(_.getPath.toString)                                               // convert to string
+
+    val sc = spark.sparkContext
+
+    val warcs = sc.union(warcFiles.map(file => sc.newAPIHadoopFile(
+      file,
+      classOf[WarcGzInputFormat],             // InputFormat
+      classOf[NullWritable],                  // Key
+      classOf[WarcWritable]                   // Value
+    ))).cache()
+
+    val filteredWarcs = warcs.filter { case (_, wr) =>
+      val header = wr.getRecord.getHeader
+      header.getHeaderValue("WARC-Type") == "response" &&
+      header.getUrl.contains("wikipedia.org")
+    }
+	 
+    val imageData = filteredWarcs.mapPartitions { iter =>
+      iter.flatMap { case (_, wr) =>
+        val content = wr.getRecord.getHttpStringBody
+        val pageUrl = wr.getRecord.getHeader.getUrl
+        val pattern = """(?i)<img[^>]*src=['"]([^'"]+)[^>]*\swidth\s*=\s*['"](\d+)['"][^>]*\sheight\s*=\s*['"](\d+)['"][^>]*>""".r
+        pattern.findAllMatchIn(content).map { m =>
+          val imageUrl = m.group(1)
+          val height = m.group(2).toInt
+          val width = m.group(3).toInt
+          val arbitrarySize = height * width
+          ImageData(pageUrl, imageUrl, arbitrarySize)
+        }
+      }
+    }
+
+    val numImages = imageData.count()
+    val meanArbitrarySize = imageData.map(_.size).mean()
+    val largestImage = imageData.reduce((a, b) => if (a.size > b.size) a else b)
+
+    println(s"Total number of images: $numImages")
+    println(s"Mean arbitrary size: $meanArbitrarySize")
+    println(s"Largest image URL: ${largestImage.imageUrl} with size: ${largestImage.size}")
+    println(s"Webpage URL: ${largestImage.pageUrl}")
+  }
+}
+```
+
+I compiled the code with `sbt assembly` and submitted the jar file to the cluster with `spark-submit --class org.rubigdata.RUBigDataApp target/scala-2.12/RUBigDataApp-assembly-1.0.jar.`
+
+The job ran on the cluster and provided the following output:
+
+```text
+Total number of images: 852057
+Mean arbitrary size: 8036.973536487572
+Largest image URL: //upload.wikimedia.org/wikipedia/commons/thumb/8/83/Bataan_in_Philipines.svg/4200px-Bataan_in_Philipines.svg.png with size: 25641000
+Webpage URL: https://ceb.wikipedia.org/wiki/Bataan
+```
+
+The analysis of the whole dataset revealed that there were **852,057 images** in the WARC files, with a **mean arbitrary size** of **8036.97**. The largest image had a size of **25,641,000 pixels** and was displayed on the webpage **https://web.archive.org/web/20210410125225/https://ceb.wikipedia.org/wiki/Bataan**.
+
+Thanks to Wayback Machine, we can see the webpage as it was on April 10, 2021, and observe the image in question. 
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    // Setup
+    var scene = new THREE.Scene();
+    var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    var renderer = new THREE.WebGLRenderer();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    document.getElementById('visualization').appendChild(renderer.domElement);
+
+    // Create a cube
+    var geometry = new THREE.BoxGeometry();
+    var material = new THREE.MeshBasicMaterial({color: 0x00ff00});
+    var cube = new THREE.Mesh(geometry, material);
+    scene.add(cube);
+
+    // Positioning
+    camera.position.z = 5;
+
+    // Animation loop
+    var animate = function () {
+      requestAnimationFrame(animate);
+      cube.rotation.x += 0.01;
+      cube.rotation.y += 0.01;
+      renderer.render(scene, camera);
+    };
+
+    animate();
+  });
+</script>
