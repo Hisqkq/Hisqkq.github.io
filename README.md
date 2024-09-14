@@ -1,47 +1,49 @@
-# Mon Portfolio Data
+# Data Science Portfolio
 
-Bienvenue sur le dépôt de mon portfolio ! Je suis un étudiant passionné en deuxième année de Master d'Ingénierie de la Statistique et de l'Informatique à l'Université de Bordeaux. Mon intérêt se porte particulièrement sur la Data Science et l'IA. Je m'interesse également au data engineering et à la gestion de bases de données. Ce site regroupe mes projets universitaires ainsi que mes projets personnels, illustrant mon parcours et mes compétences dans ces domaines passionnants.  
+Welcome to my portfolio repository. I am a dedicated second-year Master's student in Statistical Engineering and Computer Science at the University of Bordeaux, with a strong passion for Data Science and Artificial Intelligence. I am also interested in data engineering and database management. This site brings together my academic and personal projects, illustrating my journey and skills in these exciting fields.
 
-**Je suis actuellement à la recherche d'un stage de fin d'études dans le domaine de la Data. N'hésitez pas à me contacter si vous avez des opportunités à me proposer !**
+**I am currently seeking a final-year internship in the field of Data Science. Please feel free to contact me if you have any opportunities!**
 
-## 📚 À Propos de Moi
+## 📚 About Me
 
-**Nom :** Lavandier Théo  
-**Éducation :** Master en Ingénierie de la Statistique et de l'Informatique, Université de Bordeaux  
-**Intérêts :** Data Science, Intelligence Artificielle, Machine Learning, Deep Learning, Computer Vision, Big Data 
-**Contact :** theo33220@hotmail.com
+**Name:** Théo Lavandier  
+**Education:** Master's in Statistical Engineering and Computer Science, University of Bordeaux  
+**Interests:** Data Science, Artificial Intelligence, Machine Learning, Deep Learning, Computer Vision, Big Data  
+**Contact:** theo33220@hotmail.com
 
 ## 🌐 Portfolio
 
-Ce dépôt contient mon site personnel, construit avec des outils modernes de développement web et hébergé sur GitHub Pages. Vous y trouverez des descriptions détaillées de mes projets, accompagnées de démonstrations et de résultats.
+This repository contains my personal website, built with modern web development tools and hosted on GitHub Pages. You will find detailed descriptions of my projects, accompanied by demonstrations and results.
 
-### 📊 Projets Universitaires
+### 📊 Academic Projects
 
-1. **Projet de visualisation analytique** : Création d'une application Dash pour visualiser les données énergetiques de RTE France. Utilisation de MongoDB pour stocker les données.
-2. **Analyses et prédictions sur des séries temporelles** : Analyses statistiques et prédictions sur des séries temporelles de stattions de vélos en libre-service à Toulouse. Utilisation de Dash pour les visualisations. 
-3. **Base de donnée INSEE** : Création d'une base de donnée SQL à partir de données INSEE. Utilisation de Python et de la bibliothèque psycopg2 pour la connexion à la base de donnée PostgreSQL.
+1. **Analytical Visualization Project:** Developed a Dash application to visualize energy data from RTE France. Utilized MongoDB for data storage.
+2. **Time Series Analysis and Predictions:** Conducted statistical analyses and forecasting on time series data of bike-sharing stations in Toulouse. Used Dash for visualizations.
+3. **INSEE Database:** Created a SQL database from INSEE data. Employed Python and the `psycopg2` library to connect to a PostgreSQL database.
+4. **Web Archive Analysis using Apache Spark**: Designed and implemented a Spark Standalone application for large-scale web archive data analysis, deployed on Radboud University's high-performance computing cluster.  
 
-### 💡 Projets Personnels
+### 💡 Personal Projects
 
-1. **Détection d'Avions Militaires** : Entrainement et utilisation du modèle de computer vision YOLOv8 pour détecter et classifier les avions militaires. 
-2. **Snake AI** : Développement de plusieurs algorithmes d'apprentissage par renforcement pour jouer au jeu Snake. Utilisation de Q-Learning, Deep Q-Learning et Prioritized Experience Replay.
-3. **Chatbot RAG** : Création d'un chatbot utilisant le modèle RAG (Retrieval Augmented Generation) pour répondre à des questions sur des documents textuels. Utilisation d'un vector store pour la recherche d'informations et de l'API OpenAI pour la génération des réponses.
+1. **Military Aircraft Detection:** Trained and implemented the YOLOv8 computer vision model to detect and classify military aircraft.
+2. **Snake AI:** Developed several reinforcement learning algorithms to play the Snake game, including Q-Learning, Deep Q-Learning, and Prioritized Experience Replay.
+3. **RAG Chatbot:** Created a chatbot using the Retrieval Augmented Generation (RAG) model to answer questions on textual and audio documents. Integrated a vector store for information retrieval and the OpenAI API for response generation.
 
-## 🚀 Accès au Site
+## 🚀 Access the Site
 
-Pour explorer mon portfolio, suivez ce lien : [Lien vers le site web](https://Hisqkq.github.io/)
+To explore my portfolio, please visit: [Portfolio Website](https://Hisqkq.github.io/)
 
-## 🎨 Personnalisation
+## 🎨 Customization
 
-Le site est construit en utilisant [Jekyll](https://jekyllrb.com/) et [Minimal Mistakes](https://mmistakes.github.io/minimal-mistakes/).
+The site is built using [Jekyll](https://jekyllrb.com/) and the [Minimal Mistakes](https://mmistakes.github.io/minimal-mistakes/) theme.
 
-## 🌟 Fonctionnalités
+## 🌟 Features
 
-- **Design Réactif :** Le site est entièrement réactif et fonctionne sur tous les appareils.
-- **Éléments Interactifs :** Inclut des animations et des éléments interactifs pour améliorer l'expérience utilisateur.
-- **Pages de Projets Détaillées :** Chaque projet a une page dédiée avec des descriptions, éventuellement des extraits de code et des résultats.
-- **Navigation Facile :** Mise en page propre et facile à naviguer.
-- **Ajout d'une background animation :** Ajout d'une animation de fond en scss pour rendre le site plus dynamique.
+- **Responsive Design:** The site is fully responsive and works on all devices.
+- **Interactive Elements:** Includes animations and interactive components to enhance user experience.
+- **Detailed Project Pages:** Each project has a dedicated page with descriptions, code snippets, and results.
+- **Easy Navigation:** Clean layout and user-friendly navigation.
+- **Dynamic Background Animation:** Added a background animation in SCSS to make the site more dynamic.
+
 ---
 
-Merci de visiter mon portfolio ! J'espère que vous trouverez mes projets instructifs. N'hésitez pas à me contacter si vous avez des questions ou des idées de collaboration. Connectons-nous et créons quelque chose d'incroyable ensemble ! 🌟
+Thank you for visiting my portfolio! I hope you find my projects informative. Feel free to contact me if you have any questions or collaboration ideas. Let's connect and create something amazing together! 🌟
