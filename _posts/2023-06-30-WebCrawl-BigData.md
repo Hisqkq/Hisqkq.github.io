@@ -13,7 +13,7 @@ image:
   alt: Cluster of computers schematics
 ---
 
-<div id="visualization", style="width: 100%; height: 500px;"></div> 
+<div id="visualization", width="100%", height="500px"></div> 
 
 # Big Data Analysis with Apache Spark
 
