@@ -13,7 +13,18 @@ image:
   alt: Cluster of computers schematics
 ---
 
-<div id="visualization" style="width: 100%; height: 500px;"></div>
+<style>
+  /* Center the container horizontally and vertically */
+  #visualization {
+    width: 80%;
+    height: 600px;
+    margin: 0 auto; /* Center horizontally */
+    display: flex;
+    align-items: center; /* Center vertically */
+    justify-content: center;
+  }
+
+</style>
 
 # Big Data Analysis with Apache Spark
 
@@ -550,30 +561,67 @@ The analysis of the whole dataset revealed that there were **852,057 images** in
 
 Thanks to Wayback Machine, we can see the webpage as it was on April 10, 2021, and observe the image in question. 
 
+<div id="visualization"></div>
 
 <script>
   document.addEventListener('DOMContentLoaded', function () {
     // Setup
     var scene = new THREE.Scene();
-    var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-    var renderer = new THREE.WebGLRenderer();
+    var camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+    var renderer = new THREE.WebGLRenderer({ alpha: true }); // Enable transparency
     renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(window.devicePixelRatio); // For higher resolution rendering
+    renderer.setClearColor(0x000000, 0); // Transparent background
     document.getElementById('visualization').appendChild(renderer.domElement);
 
-    // Create a cube
-    var geometry = new THREE.BoxGeometry();
-    var material = new THREE.MeshBasicMaterial({color: 0x00ff00});
-    var cube = new THREE.Mesh(geometry, material);
-    scene.add(cube);
+    // Resize canvas on window resize
+    window.addEventListener('resize', function () {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    });
 
-    // Positioning
-    camera.position.z = 5;
+    // Graph vertices as spheres
+    var vertexGeometry = new THREE.SphereGeometry(0.1, 16, 16);
+    var vertexMaterial = new THREE.MeshBasicMaterial({ color: 0x1e3f66 }); // Dark blue shade
+    var vertices = [];
+
+    // Create multiple vertices (randomly placed for demo)
+    for (var i = 0; i < 10; i++) {
+      var vertex = new THREE.Mesh(vertexGeometry, vertexMaterial);
+      vertex.position.set(
+        Math.random() * 4 - 2, // Random x position
+        Math.random() * 4 - 2, // Random y position
+        Math.random() * 4 - 2  // Random z position
+      );
+      scene.add(vertex);
+      vertices.push(vertex);
+    }
+
+    // Create edges between vertices using BufferGeometry and LineBasicMaterial
+    var edgesMaterial = new THREE.LineBasicMaterial({ color: 0x1e3f66 });
+    for (var i = 0; i < vertices.length; i++) {
+      for (var j = i + 1; j < vertices.length; j++) {
+        var edgeGeometry = new THREE.BufferGeometry().setFromPoints([
+          vertices[i].position,
+          vertices[j].position,
+        ]);
+        var edge = new THREE.Line(edgeGeometry, edgesMaterial);
+        scene.add(edge);
+      }
+    }
+
+    // Positioning the camera
+    camera.position.z = 8; // Move the camera a little further back
 
     // Animation loop
     var animate = function () {
       requestAnimationFrame(animate);
-      cube.rotation.x += 0.01;
-      cube.rotation.y += 0.01;
+
+      // Optional: Make the entire scene rotate
+      scene.rotation.x += 0.005;
+      scene.rotation.y += 0.005;
+
       renderer.render(scene, camera);
     };
 
