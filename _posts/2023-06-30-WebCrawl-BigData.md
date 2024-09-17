@@ -13,19 +13,6 @@ image:
   alt: Cluster of computers schematics
 ---
 
-<style>
-  /* Center the container horizontally and vertically */
-  #visualization {
-    width: 80%;
-    height: 600px;
-    margin: 0 auto; /* Center horizontally */
-    display: flex;
-    align-items: center; /* Center vertically */
-    justify-content: center;
-  }
-
-</style>
-
 # Big Data Analysis with Apache Spark
 
 ## Introduction
@@ -33,7 +20,15 @@ image:
 During the **Big Data course** at **Radboud University**, I learned to use `Apache Spark` for large-scale data analysis and `Spark Structured Streaming` for real-time data processing.  
 In this presentation, I will introduce **Apache Spark**, **Spark Structured Streaming**, and explain how I used `Spark` to analyze web crawl data, with a focus on image data from **Wikipedia**.
 
-## Big Data & Web Crawling
+**Project Repository**:
+
+[![Repo Card white](https://github-readme-stats.vercel.app/api/pin/?username=Hisqkq&repo=Spark-BigData-Analytics)](https://github.com/Hisqkq/Spark-BigData-Analytics){: .light .w-75 .shadow .rounded-10 w='1212' h='668' }
+
+[![Black repo Card](https://github-readme-stats.vercel.app/api/pin?username=Hisqkq&repo=Spark-BigData-Analytics&title_color=fff&icon_color=f9f9f9&text_color=9f9f9f&bg_color=151515)](https://github.com/Hisqkq/Spark-BigData-Analytics){: .dark .w-75 .shadow .rounded-10 w='1212' h='668' }
+
+<div class="box-tip" markdown="1">
+<div class="title">Big Data & Web Crawling</div>
+
 
 ### What is Big Data?
 
@@ -48,7 +43,12 @@ In this presentation, I will introduce **Apache Spark**, **Spark Structured Stre
 **Web crawl data** is a collection of the data harvested by web crawlers. It can include elements such as **URLs**, **metadata**, and page content. This type of data is useful for **search engine optimization**, **web analytics**, and **data mining**.  
 In this project, I analyzed web crawl data from **Wikipedia** to extract information related to images. The data, typically stored in a distributed file system like `HDFS` (Hadoop Distributed File System), was stored in the **University's Cluster** using `HDFS` for distributed storage.
 
+</div>
+
 ## Apache Spark
+
+<div class="box-info" markdown="1">
+<div class="title">What's Spark ?</div>
 
 `Apache Spark` is a distributed computing system designed for large-scale data processing. It offers a unified framework for handling **data parallelism** and **fault tolerance**.  
 Spark supports high-level APIs in **Java**, **Scala**, **Python**, and **R**, making it accessible to various programming communities. Its optimized execution engine supports general **execution graphs**, making it efficient for a wide range of tasks. Some of the key components of Spark include:
@@ -56,6 +56,8 @@ Spark supports high-level APIs in **Java**, **Scala**, **Python**, and **R**, ma
 - **`MLlib`**: A library for scalable machine learning.
 - **`GraphX`**: For graph processing and analysis.
 - **`Spark Streaming`**: For real-time data processing.
+
+</div>
 
 In this project, I used **Spark** to analyze **Wikipedia's web crawl image data**, focusing on the distributed processing capabilities of Spark and leveraging **`Spark Structured Streaming`** for handling continuous data streams in real time.
 
@@ -75,8 +77,6 @@ Spark is built around the concept of a resilient distributed dataset (RDD). What
 
 RDD is the fundamental data structure of Spark. It is an immutable distributed collection of objects. Each dataset in Spark is split into logical partitions, which may be computed on different nodes of the cluster. RDDs can contain any type of Python, Java, or Scala objects, including user-defined classes.
 
-</div>
-
 The following code snippet shows how to create an RDD from a list of numbers and then perform a transformation on it:
 
 ```scala
@@ -86,6 +86,8 @@ val result = distData.map(x => x * x)
 ```
 
 In this example, `sc.parallelize(data)` creates an RDD from the data array. The `map` transformation is then applied to the RDD to square each element.
+
+</div>
 
 #### Spark Session
 
@@ -117,7 +119,21 @@ sqlDF.show()
 
 ### Spark Structured Streaming
 
-Spark Structured Streaming is a scalable and fault-tolerant stream processing engine built on the Spark SQL engine. You can express your streaming computation the same way you would express a batch computation on static data. The Spark SQL engine will take care of running it incrementally and continuously and updating the final result as streaming data continues to arrive.
+<div class="box-info" markdown="1">
+<div class="title">What is Structured Streaming ?</div>
+
+`Structured Streaming` is a scalable and fault-tolerant stream processing engine built on the Spark SQL engine. It allows you to process **real-time data streams** using **high-level abstractions** like DataFrames and SQL queries. Structured Streaming provides **exactly-once semantics** and **fault tolerance** out of the box.
+Here are some key features of Structured Streaming:
+- **Continuous Processing**: Structured Streaming allows you to process data continuously, enabling real-time analytics.
+- **Fault Tolerance**: Structured Streaming provides fault tolerance and exactly-once semantics, ensuring that each record is processed exactly once.
+- **Integration with Spark SQL**: You can use SQL queries and DataFrame operations to process streaming data, making it easy to work with real-time data.
+
+</div>
+
+During my course, I learned to use `Spark Structured Streaming` to process streaming data in real time. Here is an example of a Structured Streaming application that reads streaming data from a socket, processes it, and writes the results to the console:
+
+<details class="details-block" markdown="1">
+<summary> Click to expand the code snippet </summary>
 
 ```scala
 package org.rubigdata
@@ -176,7 +192,11 @@ In this example, we read streaming data from a socket and extract information ab
 We use the `RuneData` case class to define the schema of the data we are working with.
 
 
+</details>
+
 ## Final Project: Analyzing Wikipedia Image Data
+
+### Project Overview
 
 For the final project of the Big Data course, I analyzed **web crawl data** from **Wikipedia** to extract information related to **images**. The data was stored in the **University's cluster** using **HDFS** for distributed storage.
 In this project, I used **Apache Spark** to process the data and extract insights from it. The analysis focused on computing statistics related to the images, such as the number of images per page, the average image size, the biggest image etc.
@@ -191,6 +211,9 @@ I downloaded a WARC files from the url https://en.wikipedia.org/wiki/Multilingua
 `[ ! -f multilingualism.warc.gz ] && wget -r -l 3 "https://en.wikipedia.org/wiki/Multilingualism" --delete-after --no-directories --warc-file="multilingualism" || echo Most likely, multilingualism.warc.gz already exists`
 
 To get started with Spark, I implemented a simple **word count** example. The goal was to count the frequency of words in a WARC file containing Wikipedia data. The code snippet below shows how I read the WARC file, extracted the text content, tokenized the words, and counted their occurrences.
+
+<details class="details-block" markdown="1">
+<summary> Click to expand the Word Count Example </summary>
 
 ```scala
 import org.apache.spark.sql.SparkSession
@@ -230,8 +253,14 @@ spark.stop()
 (of, 333)
 ```
 
+In this example, I read the WARC file using `spark.sparkContext.wholeTextFiles(warcfile)` and extracted the text content from the HTML data. I used the `Jsoup` library to parse the HTML content and remove the HTML tags. I then tokenized the words, converted them to lowercase, and counted their occurrences using the `reduceByKey` transformation. Finally, I sorted the word count in descending order and printed the top 5 words.
+
+</details>
 
 This example helped me understand the **basics** of working with Spark on WARCs and text data.
+
+#### Wikipedia Image Analysis
+
 Now let’s start to play with the images. In Wikipedia, the size of the images on the website are defined using the height and width attributes.
 The images are displayed with the following html format:
 
@@ -239,10 +268,16 @@ The images are displayed with the following html format:
 <img src=”image_link”, some_other_things = something, width = value, height = value, >
 ```
 
-Then we can use a **regular expression** pattern to catch the element of the WARC files that correspond to this format in order to extract the images. We can use the following regular expression pattern:
+Then we can use a **regular expression** pattern to catch the element of the WARC files that correspond to this format in order to extract the images. We can use the following regular expression pattern:  
 
-`val pattern = """(?i)<img[^>]*src=['"]([^'"]+)[^>]*\swidth\s*=\s*['"](\d+)['"][^>]*\sheight\s*=\s*['"](\d+)['"][^>]*>""".r`
-Here is a program that analyses all the images (corresponding to the regex) of a WARC file:
+```scala
+val pattern = """(?i)<img[^>]*src=['"]([^'"]+)[^>]*\swidth\s*=\s*['"](\d+)['"][^>]*\sheight\s*=\s*['"](\d+)['"][^>]*>""".r
+```
+
+Here is a program that analyses all the images (corresponding to the regex) of a WARC file:  
+
+<details class="details-block" markdown="1">
+<summary> Click to expand the code snippet </summary>
 
 ```scala
 import org.apache.spark.sql.SparkSession
@@ -279,6 +314,8 @@ println(s"Mean arbitrary size: $meanArbitrarySize")
 spark.stop()
 ```
 
+</details>
+
 ```text
 Total number of images: 31
 Mean arbitrary size: 24877.967
@@ -293,6 +330,8 @@ To improve our code we could add the following features:
 
 Here is a code that implement those features:
 
+<details class="details-block" markdown="1">
+<summary> Click to expand the code snippet with the new features </summary>
 
 ```scala
 import org.apache.spark.sql.SparkSession
@@ -362,6 +401,8 @@ println(s"Webpage URL: ${largestImage.pageUrl}")
 spark.stop()
 ```
 
+</details>
+
 ```text
 Total number of images: 31
 Mean arbitrary size: 24877.967
@@ -369,104 +410,25 @@ Largest image URL: https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/339
 Webpage URL: https://en.wikipedia.org/wiki/Multilingualism
 ```
 
-### Standalone application & Multi-WARC files analysis
+### Standalone application & Running on the Cluster 
 
-To analyze multiple WARC files, I created a standalone Spark application that reads some of the WARC files in a directory and processes them in parallel. Let's download two WARC file from the cluster and analyse them locally.
+<div class="box-info" markdown="1">
+<div class="title">Standalone Application</div>
 
-```scala
-package org.rubigdata
+To run the Spark application as a standalone application, you need to package your code into a JAR file and submit it to the Spark cluster using the `spark-submit` command. The JAR file should contain all the necessary dependencies and resources required to run the application. You can use tools like `sbt assembly` to create a fat JAR that includes all dependencies. The `spark-submit` command allows you to specify the main class of your application, the JAR file, and other configuration options. The application will be executed on the Spark cluster, leveraging its distributed computing capabilities.
 
-import org.apache.hadoop.io.{NullWritable}
-import org.apache.hadoop.fs.{FileSystem, Path}
-import org.apache.hadoop.mapreduce.lib.input.TextInputFormat
-import de.l3s.concatgz.io.warc.{WarcGzInputFormat,WarcWritable}
-import de.l3s.concatgz.data.WarcRecord
-import org.apache.spark.SparkConf
-import org.apache.spark.sql.SparkSession
-
-case class ImageData(pageUrl: String, imageUrl: String, size: Int)
-
-object RUBigDataApp {
-  def main(args: Array[String]) {
-
-    // Overriding default settings
-    val sparkConf = new SparkConf()
-                      .setAppName("RUBigDataApp")
-                      .set("spark.serializer", "org.apache.spark.serializer.KryoSerializer")
-                      .registerKryoClasses(Array(classOf[WarcRecord]))
-
-    val spark = SparkSession.builder.config(sparkConf).getOrCreate()
-    import spark.implicits._
-
-    val fs = FileSystem.get(spark.sparkContext.hadoopConfiguration)
-
-    // List and sort the files
-    val warcDirPath = new Path("/opt/hadoop/rubigdata/")
-    val warcFiles = fs.listStatus(warcDirPath)
-      .filter(fileStatus => fileStatus.getPath.getName.endsWith(".warc.gz"))  // filter for .warc.gz files
-      .sortBy(_.getPath.getName)                                             // sort them
-      .take(2)                                                               // take the first two
-      .map(_.getPath.toString)                                               // convert to string
-
-    val sc = spark.sparkContext
-
-    val warcs = sc.union(warcFiles.map(file => sc.newAPIHadoopFile(
-      file,
-      classOf[WarcGzInputFormat],             // InputFormat
-      classOf[NullWritable],                  // Key
-      classOf[WarcWritable]                   // Value
-    ))).cache()
-
-    val filteredWarcs = warcs.filter { case (_, wr) =>
-      val header = wr.getRecord.getHeader
-      header.getHeaderValue("WARC-Type") == "response" &&
-      header.getUrl.contains("wikipedia.org")
-    }
-
-    val imageData = filteredWarcs.mapPartitions { iter =>
-      iter.flatMap { case (_, wr) =>
-        val content = wr.getRecord.getHttpStringBody
-        val pageUrl = wr.getRecord.getHeader.getUrl
-        val pattern = """(?i)<img[^>]*src=['"]([^'"]+)[^>]*\swidth\s*=\s*['"](\d+)['"][^>]*\sheight\s*=\s*['"](\d+)['"][^>]*>""".r
-        pattern.findAllMatchIn(content).map { m =>
-          val imageUrl = m.group(1)
-          val height = m.group(2).toInt
-          val width = m.group(3).toInt
-          val arbitrarySize = height * width
-          ImageData(pageUrl, imageUrl, arbitrarySize)
-        }
-      }
-    }
-
-    val numImages = imageData.count()
-    val meanArbitrarySize = imageData.map(_.size).mean()
-    val largestImage = imageData.reduce((a, b) => if (a.size > b.size) a else b)
-
-    println(s"Total number of images: $numImages")
-    println(s"Mean arbitrary size: $meanArbitrarySize")
-    println(s"Largest image URL: ${largestImage.imageUrl} with size: ${largestImage.size}")
-    println(s"Webpage URL: ${largestImage.pageUrl}")
-
-    spark.stop()
-  }
-}
-```
-
-Then I used `sbt assembly` to create the jar executable file, and I submitted this file on the big-data container with the command `spark-submit target/scala-2.12/RUBigDataApp-assembly-1.0.jar.`
-
-The job ran on my computer and gave me the following output:
-
-```text
-Total number of images: 1247
-Mean arbitrary size: 8567.973536487572
-Largest image URL: //upload.wikimedia.org/wikipedia/commons/thumb/1/17/Blank_map.svg/400px-Blank_map.svg.png with size: 160000
-Webpage URL: https://ar.wikipedia.org/wiki/كووسادا
-```
+</div>
 
 
 ### Run on the Cluster
 
 Finally, I ran the Spark application on the **University's cluster** to analyze the whole dataset of WARC files. The cluster provided a distributed environment to process the data in parallel, leveraging the computing power of multiple nodes. The analysis focused on extracting image data from the WARC files and computing statistics related to the images.
+
+
+Here is the final code that I used to analyze the whole dataset of WARC files on the cluster:
+
+<details class="details-block" markdown="1">
+<summary> Click to expand the code snippet </summary>
 
 ```scala
 package org.rubigdata
@@ -546,6 +508,8 @@ object RUBigDataApp {
 }
 ```
 
+</details>
+
 I compiled the code with `sbt assembly` and submitted the jar file to the cluster with `spark-submit --class org.rubigdata.RUBigDataApp target/scala-2.12/RUBigDataApp-assembly-1.0.jar.`
 
 The job ran on the cluster and provided the following output:
@@ -557,11 +521,49 @@ Largest image URL: //upload.wikimedia.org/wikipedia/commons/thumb/8/83/Bataan_in
 Webpage URL: https://ceb.wikipedia.org/wiki/Bataan
 ```
 
-The analysis of the whole dataset revealed that there were **852,057 images** in the WARC files, with a **mean arbitrary size** of **8036.97**. The largest image had a size of **25,641,000 pixels** and was displayed on the webpage **https://web.archive.org/web/20210410125225/https://ceb.wikipedia.org/wiki/Bataan**.
+The analysis of the whole dataset revealed that there were **852,057 images** in the WARC files, with a **mean arbitrary size** of **8036.97**. The largest image had a size of **25,641,000 pixels** and was displayed on this [webpage](https://web.archive.org/web/20210410125225/https://ceb.wikipedia.org/wiki/Bataan).
 
-Thanks to Wayback Machine, we can see the webpage as it was on April 10, 2021, and observe the image in question. 
+Thanks to Wayback Machine, we can see the webpage as it was during the crawl. The image is displayed below:
+
+![Bataan Image](assets/img/BigData/Bataan.png)
+
+This image was the largest one found in the dataset, with a size of **25,641,000 pixels**. It represents the province of **Bataan** (in red) in the **Philippines**.  
+
+
+#### Performances
+
+The analysis of the whole dataset was a computationally intensive task that required processing a large amount of data. By running the Spark job on the cluster, I was able to leverage the distributed computing capabilities of the cluster to process the data in parallel. This significantly reduced the processing time and improved the performance of the analysis.
+
+<div class="box-info" markdown="1">
+<div class="title">Here is the application overview</div>
+
+![Application Overview](assets/img/BigData/perf.png)
+
+The application ran for **4 hours and 46 minutes**, processing a total of **700 Go** of unstructured data.
+
+</div>
+
+## Conclusion
+
+In this project, I used **Apache Spark** to analyze web crawl data from **Wikipedia** and extract information related to images. The analysis focused on computing statistics related to the images, such as the number of images per page, the average image size, and the largest image. By leveraging the distributed computing capabilities of Spark and running the analysis on the University's cluster, I was able to process the data efficiently and derive insights from it. The project provided valuable hands-on experience with **big data analysis** and **distributed computing** using **Apache Spark**.
+
+The analysis of the web crawl data demonstrated the power of **Spark** for processing large-scale datasets and extracting meaningful information from them. The ability to work with **structured and unstructured data**, **perform complex computations**, and **derive insights** from the data makes Spark a valuable tool for **big data analytics**. The project also highlighted the importance of **distributed computing** for handling large volumes of data and the benefits of running Spark applications on a **cluster** to improve performance and scalability.
+
+
 
 <div id="visualization"></div>
+
+<style>
+
+    #visualization {
+    width: 80%;
+    height: 600px;
+    margin: 0 auto; 
+    display: flex;
+    align-items: center; 
+    justify-content: center;
+  }
+  </style>
 
 <script>
   document.addEventListener('DOMContentLoaded', function () {
@@ -628,3 +630,5 @@ Thanks to Wayback Machine, we can see the webpage as it was on April 10, 2021, a
     animate();
   });
 </script>
+
+<script src="/assets/js/three.min.js"></script>
