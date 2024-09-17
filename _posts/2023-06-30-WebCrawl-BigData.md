@@ -631,4 +631,3 @@ The analysis of the web crawl data demonstrated the power of **Spark** for proce
   });
 </script>
 
-<script src="/assets/js/three.min.js"></script>
