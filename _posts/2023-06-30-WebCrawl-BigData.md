@@ -441,8 +441,8 @@ import de.l3s.concatgz.data.WarcRecord
 import org.apache.spark.SparkConf
 import org.apache.spark.sql.SparkSession
 
-// Define the case class outside of the object
 case class ImageData(pageUrl: String, imageUrl: String, size: Int)
+case class AggResult(count: Long, totalSize: Long, largestImage: ImageData)
 
 object RUBigDataApp {
   def main(args: Array[String]) {
@@ -496,15 +496,34 @@ object RUBigDataApp {
       }
     }
 
-    val numImages = imageData.count()
-    val meanArbitrarySize = imageData.map(_.size).mean()
-    val largestImage = imageData.reduce((a, b) => if (a.size > b.size) a else b)
 
+    // Aggregate function to compute count, total size, and largest image in a single pass
+    val aggResult = imageData.aggregate(AggResult(0L, 0L, ImageData("", "", 0)))(
+      // SeqOp: Update the accumulator with each element in the partition
+      (acc, imgData) => AggResult(
+        acc.count + 1, 
+        acc.totalSize + imgData.size, 
+        if (imgData.size > acc.largestImage.size) imgData else acc.largestImage
+      ),
+      // CombOp: Merge accumulators from different partitions
+      (acc1, acc2) => AggResult(
+        acc1.count + acc2.count, 
+        acc1.totalSize + acc2.totalSize, 
+        if (acc1.largestImage.size > acc2.largestImage.size) acc1.largestImage else acc2.largestImage
+      )
+    )
+
+    val numImages = aggResult.count
+    val meanArbitrarySize = if (numImages > 0) aggResult.totalSize.toDouble / numImages else 0.0
+    val largestImage = aggResult.largestImage
+
+    // Print the results
     println(s"Total number of images: $numImages")
     println(s"Mean arbitrary size: $meanArbitrarySize")
     println(s"Largest image URL: ${largestImage.imageUrl} with size: ${largestImage.size}")
     println(s"Webpage URL: ${largestImage.pageUrl}")
-  }
+
+      }
 }
 ```
 
