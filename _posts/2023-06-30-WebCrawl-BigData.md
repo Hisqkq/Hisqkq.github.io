@@ -5,7 +5,7 @@ author: <author_id>
 date: 2023-06-30 11:33:00 +0800
 categories: [University Project, Big Data]
 tags: [Spark, WebCrawl, Big Data, Scala, Hadoop]
-pin: true
+pin: false
 math: true
 mermaid: true
 image:
