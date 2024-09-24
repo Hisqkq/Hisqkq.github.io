@@ -569,9 +569,6 @@ In this project, I used **Apache Spark** to analyze web crawl data from **Wikipe
 The analysis of the web crawl data demonstrated the power of **Spark** for processing large-scale datasets and extracting meaningful information from them. The ability to work with **structured and unstructured data**, **perform complex computations**, and **derive insights** from the data makes Spark a valuable tool for **big data analytics**. The project also highlighted the importance of **distributed computing** for handling large volumes of data and the benefits of running Spark applications on a **cluster** to improve performance and scalability.
 
 
-
-<div id="visualization"></div>
-
 <style>
 
     #visualization {
