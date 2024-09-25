@@ -174,6 +174,10 @@ This code is used to evaluate the model on the validation set, using the trained
 
 Here are the results of the model evaluation on the validation set:
 
+<div class="box-warning" markdown="1">
+
+<div class="title"> Validation Results (Scroll to see all classes) </div>
+
 <div style="overflow-x:auto; max-height:600px;">
   <table>
     <thead>
@@ -236,10 +240,25 @@ Here are the results of the model evaluation on the validation set:
   </table>
 </div>
 
+</div>
 
 
+**Overall Performance:**
 
-Overall, the metrics show that the model has good precision (0.944) and recall (0.86). The mAP50 and mAP50-95 values indicate high performance for most aircraft classes, with scores close to or above 0.9, demonstrating the model's effectiveness in detecting aircraft in images. It is important to note that some classes have lower scores, which could be due to variations in the training data or specific characteristics of the aircraft. These results can be used to improve the model by adjusting the hyperparameters or collecting more data for underrepresented classes.
+The metrics show that the model has **good precision** (0.944) and **recall** (0.86).
+
+- The **mAP50** and **mAP50-95** values indicate high performance for most aircraft classes, with scores close to or above **0.9**, demonstrating the model’s effectiveness in detecting aircraft in images.
+  
+- However, it's important to note that some classes have **lower scores**, which could be due to:
+  - Variations in the training data.
+  - Specific characteristics of certain aircraft.
+
+**Opportunities for Improvement:**
+
+These results suggest that we can **further improve the model** by:
+  
+- Adjusting the **hyperparameters**.
+- Collecting more data for **underrepresented classes**.
 
 ### Validation Results Visualization
 
@@ -386,9 +405,11 @@ process_video(F22_video_path, output_path)
 
 Here is an example of the video annotated with YOLOv8 detections:
 
+<div style="text-align: center;">
 <video width="640" height="360" controls>
   <source src="/assets/vid/AirCraft/rafalevideo.mp4" type="video/mp4">
 </video>
+</div>
 
 The video shows **YOLOv8 detections** on the **Rafale** presentation video, with **bounding boxes** and **class predictions** for each detected aircraft. The model is capable of detecting moving aircraft in the video, demonstrating its ability to **process video sequences in real-time**.
 
@@ -398,9 +419,11 @@ This highlights the **importance of training data quality** and the **diversity 
 
 We can try the model on **another video** where the **aircraft visibility is lower** to see if the model can still detect them.
 
+<div style="text-align: center;">
 <video width="640" height="360" controls>
   <source src="/assets/vid/AirCraft/F22video.mp4" type="video/mp4">
 </video>
+</div>
 
 This is an example of a video annotated with YOLOv8 detections on a **F22** presentation video. The model performed relatively well in detecting the aircraft in the video, but it encountered **difficulties** in correctly classifying the aircraft. It seems that the model **confused** the **F22** with other aircraft, notably the **F35**. This may be due to similarities in the **visual characteristics** of the aircraft or variations in the training data.
 
